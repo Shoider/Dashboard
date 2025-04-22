@@ -89,7 +89,7 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <AnalyticsCurrentVisits
-            title="Lllenado de formatos"
+            title="Llenado de formatos totales"
             chart={{
               series: [
                 { label: 'VPN', value: 3500 },
@@ -103,13 +103,15 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
-            title="Website visits"
+            title="Formatos llenados por semana"
             subheader="(+43%) than last year"
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+              categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
               series: [
-                { name: 'Team A', data: [43, 33, 22, 37, 67, 68, 37, 24, 55] },
-                { name: 'Team B', data: [51, 70, 47, 67, 40, 37, 24, 70, 24] },
+                { name: 'VPN', data: [0, 2, 3, 2, 3, 2, 1] },
+                { name: 'RFC', data: [1, 4, 0, 0, 1, 3, 5] },
+                { name: 'INTERNET', data: [4, 2, 7, 6, 2, 4, 1] },
+                { name: 'TELEFONIA', data: [0, 6, 1, 1, 3, 5, 0] },
               ],
             }}
           />
