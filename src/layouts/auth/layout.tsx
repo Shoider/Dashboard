@@ -8,8 +8,7 @@ import Alert from '@mui/material/Alert';
 
 import { RouterLink } from 'src/routes/components';
 
-import { Logo } from 'src/components/logo';
-
+//import { Logo } from 'src/components/logo';
 import { AuthContent } from './content';
 import { MainSection } from '../core/main-section';
 import { LayoutSection } from '../core/layout-section';
@@ -49,12 +48,12 @@ export function AuthLayout({
           This is an info Alert.
         </Alert>
       ),
-      leftArea: (
-        <>
-          {/** @slot Logo */}
-          <Logo />
-        </>
-      ),
+     // leftArea: (
+       // <>
+         // {/** @slot Logo */}
+         // <Logo />
+       // </>
+      //),
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
           {/** @slot Help link */}
