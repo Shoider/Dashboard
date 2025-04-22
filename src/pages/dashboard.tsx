@@ -7,7 +7,7 @@ import { OverviewAnalyticsView as DashboardView } from 'src/sections/overview/vi
 export default function Page() {
   return (
     <>
-      <title>{`Dashboard - ${CONFIG.appName}`}</title>
+      <title>{`Dashboard `}</title>
       <meta
         name="description"
         content="Mi Dashboard"

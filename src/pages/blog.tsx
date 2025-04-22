@@ -8,7 +8,7 @@ import { BlogView } from 'src/sections/blog/view';
 export default function Page() {
   return (
     <>
-      <title>{`Blog - ${CONFIG.appName}`}</title>
+      <title>{`Blog `}</title>
 
       <BlogView posts={_posts} />
     </>
