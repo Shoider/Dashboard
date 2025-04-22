@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
+import { Divider } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -127,7 +128,7 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
 
       {slots?.topArea}
 
-      <WorkspacesPopover data={workspaces} sx={{ my: 2 }} />
+      {/*<WorkspacesPopover data={workspaces} sx={{ my: 2 }} />*/}
 
       <Scrollbar fillContent>
         <Box
@@ -138,16 +139,19 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
               display: 'flex',
               flex: '1 1 auto',
               flexDirection: 'column',
+              mt: 3,
             },
             ...(Array.isArray(sx) ? sx : [sx]),
           ]}
         >
+          <Divider sx={{ my: 1 }} />
           <Box
             component="ul"
             sx={{
               gap: 0.5,
               display: 'flex',
               flexDirection: 'column',
+              mt: 2
             }}
           >
             {data.map((item) => {
