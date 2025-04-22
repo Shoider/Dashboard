@@ -2,6 +2,7 @@ import type { WorkspacesPopoverProps } from './components/workspaces-popover';
 
 // ----------------------------------------------------------------------
 
+{/*LA PARTE DE WORKSPACES-POPOVER COMENTADA AYUDA A MOSTRAR EL MENÚ EN SCROOLBAR */}
 export const _workspaces: WorkspacesPopoverProps['data'] = [
   {
     id: 'team-1',

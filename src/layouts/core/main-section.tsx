@@ -17,7 +17,7 @@ export function MainSection({ children, className, sx, ...other }: MainSectionPr
 }
 
 // ----------------------------------------------------------------------
-
+{/**PAGINA PRINCIPAL, LA MUESTRA */}
 const MainRoot = styled('main')({
   display: 'flex',
   flex: '1 1 auto',

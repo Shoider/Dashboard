@@ -90,6 +90,8 @@ export function WorkspacesPopover({ data = [], sx, ...other }: WorkspacesPopover
         <Iconify width={16} icon="carbon:chevron-sort" sx={{ color: 'text.disabled' }} />
       </ButtonBase>
 
+      
+      {/*MENU DE LISTA DE TEAM 1, TEAM 2----*/ }
       <Popover open={!!openPopover} anchorEl={openPopover} onClose={handleClosePopover}>
         <MenuList
           disablePadding

@@ -1,3 +1,4 @@
+{/**GRAFICA RARA (RADAR)DE CURRENT SUBJECT */}
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
