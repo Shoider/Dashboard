@@ -1,3 +1,5 @@
+{/**GRAFICA DE BARRAS (BAR) HORIZONTAL "CONVERSION RATES" */}
+{/**LINK PARA VER LAS GRAFICAS QUE EXISTEN https://mui.com/x/react-charts/radar/ */}
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
@@ -60,7 +62,7 @@ export function AnalyticsConversionRates({ title, subheader, chart, sx, ...other
     },
     ...chart.options,
   });
-
+  
   return (
     <Card sx={sx} {...other}>
       <CardHeader title={title} subheader={subheader} />

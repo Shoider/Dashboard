@@ -12,8 +12,16 @@ import { Logo } from 'src/components/logo';
 export function NotFoundView() {
   return (
     <>
-      <Logo sx={{ position: 'fixed', top: 20, left: 20 }} />
-
+      {/*<Logo sx={{ position: 'fixed', top: 20, left: 20 }} />*/}
+      <Box
+          component="img"
+          src="/assets/illustrations/Conagua.png"
+          sx={{
+            width: 200,
+            height: 'auto',
+            //my: { xs: 5, sm: 10 },
+          }}
+        />
       <Container
         sx={{
           py: 10,

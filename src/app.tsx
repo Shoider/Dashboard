@@ -8,7 +8,7 @@ import { usePathname } from 'src/routes/hooks';
 
 import { ThemeProvider } from 'src/theme/theme-provider';
 
-import { Iconify } from 'src/components/iconify';
+//import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
@@ -18,8 +18,8 @@ type AppProps = {
 
 export default function App({ children }: AppProps) {
   useScrollToTop();
-
-  const githubButton = () => (
+{/**SE  PODRIA UTILIZAR PARA PONER UN BOTON QUE DIRIGIA A "SOLICITUDES" */}
+  {/*const githubButton = () => (
     <Fab
       size="medium"
       aria-label="Github"
@@ -37,7 +37,7 @@ export default function App({ children }: AppProps) {
       <Iconify width={24} icon="socials:github" sx={{ '--color': 'white' }} />
     </Fab>
   );
-
+*/}
   return (
     <ThemeProvider>
       {children}

@@ -12,7 +12,8 @@ import Drawer, { drawerClasses } from '@mui/material/Drawer';
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
-import { Logo } from 'src/components/logo';
+//funcion que crea el logo
+//import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
 
 import { WorkspacesPopover } from '../components/workspaces-popover';
@@ -87,8 +88,9 @@ export function NavMobile({
 
   return (
     <Drawer
-      open={open}
-      onClose={onClose}
+    //variant='permanent'  
+    open={open}
+    onClose={onClose}
       sx={{
         [`& .${drawerClasses.paper}`]: {
           pt: 2.5,
@@ -111,7 +113,17 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
 
   return (
     <>
-      <Logo />
+      {/*<Logo />*/}
+      <Box
+          component="img"
+          src="/assets/illustrations/Conagua.png"
+          sx={{
+            width: 200,
+            height: 'auto',
+            
+          }}
+        />
+
 
       {slots?.topArea}
 
@@ -119,6 +131,7 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
 
       <Scrollbar fillContent>
         <Box
+          //LISTA DE CONTENIDOS "USER/PRODUCT/BLOG---"
           component="nav"
           sx={[
             {
@@ -169,14 +182,14 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
                     ]}
                   >
                     <Box component="span" sx={{ width: 24, height: 24 }}>
-                      {item.icon}
+                      {item.icon}{/**ICONOS DE BARRA */}
                     </Box>
 
                     <Box component="span" sx={{ flexGrow: 1 }}>
-                      {item.title}
+                      {item.title}{/**TITULOS DE BARRA */}
                     </Box>
 
-                    {item.info && item.info}
+                    {item.info && item.info} {/**muestra el "+3" que esta  a ldo de blog */}
                   </ListItemButton>
                 </ListItem>
               );
@@ -185,7 +198,9 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
         </Box>
       </Scrollbar>
 
-      {slots?.bottomArea}
+      {slots?.bottomArea} {/**¿qué hace? */}
+
+     
     </>
   );
 }

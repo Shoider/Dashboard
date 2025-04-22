@@ -1,3 +1,5 @@
+{/*GRAFICA DE PASTEL (PIE) DE CURRENT VISITS*/}
+{/**LINK PARA VER LAS GRAFICAS QUE EXISTEN https://mui.com/x/react-charts/radar/ */}
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
