@@ -81,13 +81,13 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, md: 6, lg: 4 }}>
           <AnalyticsCurrentVisits
-            title="Current visits"
+            title="Lllenado de formatos"
             chart={{
               series: [
-                { label: 'America', value: 3500 },
-                { label: 'Asia', value: 2500 },
-                { label: 'Europe', value: 1500 },
-                { label: 'Africa', value: 500 },
+                { label: 'VPN', value: 3500 },
+                { label: 'Ampliación de Internet', value: 2500 },
+                { label: 'RFC', value: 1500 },
+                { label: 'Teléfonia', value: 500 },
               ],
             }}
           />
@@ -114,7 +114,7 @@ export function OverviewAnalyticsView() {
             chart={{
               categories: ['Italy', 'Japan', 'China', 'Canada', 'France'],
               series: [
-                { name: '2022', data: [44, 55, 41, 64, 22] },
+                { name: '2024', data: [44, 55, 41, 64, 22] },
                 { name: '2023', data: [53, 32, 33, 52, 13] },
               ],
             }}
