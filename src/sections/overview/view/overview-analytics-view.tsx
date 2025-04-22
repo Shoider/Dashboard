@@ -1,5 +1,9 @@
 import Grid from '@mui/material/Grid';
+import WifiIcon from '@mui/icons-material/Wifi';
 import Typography from '@mui/material/Typography';
+import PhoneIcon from '@mui/icons-material/Phone';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import VpnLockIcon from '@mui/icons-material/VpnLock';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
@@ -14,19 +18,13 @@ import { AnalyticsTrafficBySite } from '../analytics-traffic-by-site';
 import { AnalyticsCurrentSubject } from '../analytics-current-subject';
 import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 
-// ICONOS
-import VpnLockIcon from '@mui/icons-material/VpnLock';
-import WifiIcon from '@mui/icons-material/Wifi';
-import PhoneIcon from '@mui/icons-material/Phone';
-import ShuffleIcon from '@mui/icons-material/Shuffle';
-
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
   return (
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
-        Hi, Welcome back 👋 
+        Hola, Bienvenido 👋 
       </Typography>
 
       <Grid container spacing={3}>
