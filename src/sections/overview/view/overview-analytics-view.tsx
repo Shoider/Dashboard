@@ -14,6 +14,12 @@ import { AnalyticsTrafficBySite } from '../analytics-traffic-by-site';
 import { AnalyticsCurrentSubject } from '../analytics-current-subject';
 import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 
+// ICONOS
+import VpnLockIcon from '@mui/icons-material/VpnLock';
+import WifiIcon from '@mui/icons-material/Wifi';
+import PhoneIcon from '@mui/icons-material/Phone';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+
 // ----------------------------------------------------------------------
 
 export function OverviewAnalyticsView() {
@@ -26,10 +32,11 @@ export function OverviewAnalyticsView() {
       <Grid container spacing={3}>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
-            title="Weekly sales"
+            title="VPN"
             percent={2.6}
             total={714000}
-            icon={<img alt="Weekly sales" src="/assets/icons/glass/ic-glass-bag.svg" />}
+            //icon={<img alt="Weekly sales" src="/assets/icons/glass/ic-glass-bag.svg" />}
+            icon={<VpnLockIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [22, 8, 35, 50, 82, 84, 77, 12],
@@ -39,11 +46,12 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
-            title="New users"
+            title="RFC"
             percent={-0.1}
             total={1352831}
             color="secondary"
-            icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
+            //icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
+            icon={<ShuffleIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [56, 47, 40, 62, 73, 30, 23, 54],
@@ -53,11 +61,12 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
-            title="Purchase orders"
+            title="INTERNET"
             percent={2.8}
             total={1723315}
             color="warning"
-            icon={<img alt="Purchase orders" src="/assets/icons/glass/ic-glass-buy.svg" />}
+            //icon={<img alt="Purchase orders" src="/assets/icons/glass/ic-glass-buy.svg" />}
+            icon={<WifiIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [40, 70, 50, 28, 70, 75, 7, 64],
@@ -67,11 +76,12 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
-            title="Messages"
+            title="TELEFONÍA"
             percent={3.6}
             total={234}
             color="error"
-            icon={<img alt="Messages" src="/assets/icons/glass/ic-glass-message.svg" />}
+            //icon={<img alt="Messages" src="/assets/icons/glass/ic-glass-message.svg" />}
+            icon={<PhoneIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
               series: [56, 30, 23, 54, 47, 40, 62, 73],
