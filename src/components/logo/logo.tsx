@@ -1,3 +1,5 @@
+{/**CREA EL LOGO LÍNEA POR LÍNEA Y AYUDA A SABER DONDE SE VA A MOSTRAR */}
+
 import type { LinkProps } from '@mui/material/Link';
 
 import { useId } from 'react';
@@ -163,7 +165,7 @@ export function Logo({
       />
     </svg>
   );
-
+{/**ESPACIO DEL LOGO */}
   return (
     <LogoRoot
       component={RouterLink}
@@ -188,7 +190,7 @@ export function Logo({
 }
 
 // ----------------------------------------------------------------------
-
+{/**MUESTRA EL LOGO */}
 const LogoRoot = styled(Link)(() => ({
   flexShrink: 0,
   color: 'transparent',
