@@ -33,7 +33,6 @@ export function OverviewAnalyticsView() {
             title="VPN"
             percent={2.6}
             total={714000}
-            //icon={<img alt="Weekly sales" src="/assets/icons/glass/ic-glass-bag.svg" />}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -48,7 +47,6 @@ export function OverviewAnalyticsView() {
             percent={-0.1}
             total={1352831}
             color="secondary"
-            //icon={<img alt="New users" src="/assets/icons/glass/ic-glass-users.svg" />}
             icon={<ShuffleIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -63,7 +61,6 @@ export function OverviewAnalyticsView() {
             percent={2.8}
             total={1723315}
             color="warning"
-            //icon={<img alt="Purchase orders" src="/assets/icons/glass/ic-glass-buy.svg" />}
             icon={<WifiIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -78,7 +75,6 @@ export function OverviewAnalyticsView() {
             percent={3.6}
             total={234}
             color="error"
-            //icon={<img alt="Messages" src="/assets/icons/glass/ic-glass-message.svg" />}
             icon={<PhoneIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
