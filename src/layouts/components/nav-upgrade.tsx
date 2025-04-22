@@ -34,7 +34,7 @@ export function NavUpgrade({ sx, ...other }: StackProps) {
           }),
         ]}
       >
-        More features?
+        More features????
       </Typography>
 
       <Typography variant="body2" sx={{ color: 'text.secondary', mt: 0.5 }}>
