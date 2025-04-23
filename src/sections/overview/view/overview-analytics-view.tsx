@@ -8,20 +8,36 @@ import VpnLockIcon from '@mui/icons-material/VpnLock';
 import { DashboardContent } from 'src/layouts/dashboard';
 import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
 
-import { AnalyticsNews } from '../analytics-news';
-import { AnalyticsTasks } from '../analytics-tasks';
+import data from './project-vpn.json'; // Importa el JSON de vpn, se tendria que modificar
+import data2 from './project-internet.json'; // Importa el JSON de internet
+import data3 from './project-telefonia.json'; // Importa el JSON de telefonia
+import data4 from './project-rfc.json'; // Importa el JSON de telefonia
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
-import { AnalyticsOrderTimeline } from '../analytics-order-timeline';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
-import { AnalyticsTrafficBySite } from '../analytics-traffic-by-site';
-import { AnalyticsCurrentSubject } from '../analytics-current-subject';
-import { AnalyticsConversionRates } from '../analytics-conversion-rates';
 
 // ----------------------------------------------------------------------
+///VPN
+const seqVPN = data.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
+// Función para sumar los números de seqValue
+const sumSeqVPN = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+const seqVPN2 = sumSeqVPN(seqVPN); // Suma los valores de seqValue
+///INTERNET
+const seqINTERNET = data2.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
+const sumSeqINTERNET = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+const seqINTERNET2 = sumSeqINTERNET(seqINTERNET); // Suma los valores de seqValue
+///TELEFONIA
+const seqTELEFONIA = data3.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
+const sumSeqTELEFONIA = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+const seqTELEFONIA2 = sumSeqTELEFONIA(seqTELEFONIA); // Suma los valores de seqValue
+///RFC
+const seqRFC = data4.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
+const sumSeqRFC = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+const seqRFC2 = sumSeqRFC(seqRFC); // Suma los valores de seqValue
 
 export function OverviewAnalyticsView() {
   return (
+    //console.log(seqValue2),
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Hola, Bienvenido 👋 
@@ -88,10 +104,10 @@ export function OverviewAnalyticsView() {
             title="Llenado de formatos totales"
             chart={{
               series: [
-                { label: 'VPN', value: 3500 },
-                { label: 'Ampliación de Internet', value: 2500 },
-                { label: 'RFC', value: 1500 },
-                { label: 'Teléfonia', value: 500 },
+                { label: 'VPN', value: seqVPN2 },
+                { label: 'Ampliación de Internet', value: seqINTERNET2 },
+                { label: 'RFC', value: seqRFC2 },
+                { label: 'Teléfonia', value: seqTELEFONIA2 },
               ],
             }}
           />
@@ -104,10 +120,10 @@ export function OverviewAnalyticsView() {
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
               series: [
-                { name: 'VPN', data: [0, 2, 3, 2, 3, 2, 1] },
-                { name: 'RFC', data: [1, 4, 0, 0, 1, 3, 5] },
-                { name: 'INTERNET', data: [4, 2, 7, 6, 2, 4, 1] },
-                { name: 'TELEFONIA', data: [0, 6, 1, 1, 3, 5, 0] },
+                { name: 'VPN', data: [10, 2, 7, 6, 2, 4, 1] },
+                { name: 'RFC', data: [10, 2, 7, 6, 2, 4, 1] },
+                { name: 'INTERNET', data: [10, 2, 7, 6, 2, 4, 1] },
+                { name: "TELEFONÍA", data: seqVPN },
               ],
             }}
           />
