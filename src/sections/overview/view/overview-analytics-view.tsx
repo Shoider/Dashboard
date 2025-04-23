@@ -15,6 +15,7 @@ import data3 from './project-telefonia.json'; // Importa el JSON de telefonia
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
+import { AnalyticsSemanaAnterior } from '../analytics-semana-anterior';
 
 // ----------------------------------------------------------------------
 ///VPN
@@ -115,7 +116,7 @@ export function OverviewAnalyticsView() {
 
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
-            title="Formatos llenados por semana"
+            title="Formatos llenados esta semana"
             subheader="Semana del 21-25 de abril"
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
@@ -124,6 +125,21 @@ export function OverviewAnalyticsView() {
                 { name: 'RFC', data: seqRFC},
                 { name: 'INTERNET', data: seqRFC },
                 { name: "TELEFONÍA", data: seqTELEFONIA },
+              ],
+            }}
+          />
+        </Grid>
+        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
+          <AnalyticsSemanaAnterior
+            title="Formatos llenados la semana anterior"
+            subheader="Semana del 14-18 de abril"
+            chart={{
+              categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
+              series: [
+                { name: 'VPN', data: [0,0,0,0,0,0] },
+                { name: 'RFC', data: [0,0,0,0,0,0] },
+                { name: 'INTERNET', data: [0,0,0,0,0,0]  },
+                { name: "TELEFONÍA", data: [0,0,0,0,0,0]  },
               ],
             }}
           />
