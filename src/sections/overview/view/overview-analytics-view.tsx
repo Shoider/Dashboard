@@ -18,7 +18,6 @@ import data3 from './project-telefonia.json'; // Importa el JSON de telefonia
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
-import { AnalyticsSemanaAnterior } from '../analytics-semana-anterior';
 
 // ----------------------------------------------------------------------
 ///VPN
@@ -165,7 +164,7 @@ export function OverviewAnalyticsView() {
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
-          <AnalyticsSemanaAnterior
+          <AnalyticsWebsiteVisits
             title="Formatos llenados la semana anterior"
             subheader="Semana del 14-18 de abril"
             chart={{
