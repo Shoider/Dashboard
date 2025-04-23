@@ -1,8 +1,8 @@
 {
-  "name": "@minimal/material-kit-react",
-  "author": "minimals.cc",
+  "name": "@conagua/dashboard",
+  "author": "Bradon y Nidia",
   "licence": "MIT",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "private": false,
   "type": "module",
   "scripts": {
