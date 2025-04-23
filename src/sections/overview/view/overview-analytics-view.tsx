@@ -123,7 +123,7 @@ export function OverviewAnalyticsView() {
               series: [
                 { name: 'VPN', data: seqVPN },
                 { name: 'RFC', data: seqRFC},
-                { name: 'INTERNET', data: seqRFC },
+                { name: 'INTERNET', data: seqINTERNET },
                 { name: "TELEFONÍA", data: seqTELEFONIA },
               ],
             }}
