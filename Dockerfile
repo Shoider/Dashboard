@@ -10,7 +10,7 @@ WORKDIR /app
 COPY --chown=front ./dist .
 
 # Copia tu configuración personalizada de Nginx para el dashboard (opcional)
-COPY ./nginx/dashboard.conf /etc/nginx/conf.d/
+# COPY ./nginx/dashboard.conf /etc/nginx/conf.d/
 
 # Copia las imagenes
 COPY --chown=front public ./public
@@ -19,7 +19,7 @@ COPY --chown=front public ./public
 # RUN rm /etc/nginx/conf.d/default.conf
 
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3039
 
 RUN npm install sharp
 
@@ -29,4 +29,4 @@ EXPOSE 3039
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://dashboard:3039 || exit 1
 
-CMD ["node", "server.js"]
+CMD ["npx", "serve", "-s", "dist", "-p", "3039"]
