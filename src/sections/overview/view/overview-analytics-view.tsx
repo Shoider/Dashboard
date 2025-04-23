@@ -6,12 +6,12 @@ import ShuffleIcon from '@mui/icons-material/Shuffle';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
 
 import { DashboardContent } from 'src/layouts/dashboard';
-import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
+//import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
 
 import data from './project-vpn.json'; // Importa el JSON de vpn, se tendria que modificar
+import data4 from './project-rfc.json'; // Importa el JSON de rfc
 import data2 from './project-internet.json'; // Importa el JSON de internet
 import data3 from './project-telefonia.json'; // Importa el JSON de telefonia
-import data4 from './project-rfc.json'; // Importa el JSON de telefonia
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
@@ -47,12 +47,12 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="VPN"
-            percent={2.6}
-            total={714000}
+            percent={-100}
+            total={seqVPN2}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [22, 8, 35, 50, 82, 84, 77, 12],
+              series: seqVPN,
             }}
           />
         </Grid>
@@ -60,13 +60,13 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="RFC"
-            percent={-0.1}
-            total={1352831}
+            percent={20}
+            total={seqRFC2}
             color="secondary"
             icon={<ShuffleIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [56, 47, 40, 62, 73, 30, 23, 54],
+              series:seqRFC,
             }}
           />
         </Grid>
@@ -74,13 +74,13 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="INTERNET"
-            percent={2.8}
-            total={1723315}
+            percent={-300}
+            total={seqINTERNET2}
             color="warning"
             icon={<WifiIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [40, 70, 50, 28, 70, 75, 7, 64],
+              series: seqINTERNET,
             }}
           />
         </Grid>
@@ -88,13 +88,13 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="TELEFONÍA"
-            percent={3.6}
-            total={234}
+            percent={-20}
+            total={seqTELEFONIA2}
             color="error"
             icon={<PhoneIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
-              series: [56, 30, 23, 54, 47, 40, 62, 73],
+              series: seqTELEFONIA,
             }}
           />
         </Grid>
@@ -116,14 +116,14 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
             title="Formatos llenados por semana"
-            subheader="(+43%) than last year"
+            subheader="Semana del 21-25 de abril"
             chart={{
-              categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'],
+              categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
               series: [
-                { name: 'VPN', data: [10, 2, 7, 6, 2, 4, 1] },
-                { name: 'RFC', data: [10, 2, 7, 6, 2, 4, 1] },
-                { name: 'INTERNET', data: [10, 2, 7, 6, 2, 4, 1] },
-                { name: "TELEFONÍA", data: seqVPN },
+                { name: 'VPN', data: seqVPN },
+                { name: 'RFC', data: seqRFC},
+                { name: 'INTERNET', data: seqRFC },
+                { name: "TELEFONÍA", data: seqTELEFONIA },
               ],
             }}
           />
