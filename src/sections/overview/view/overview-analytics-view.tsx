@@ -51,33 +51,6 @@ export function OverviewAnalyticsView() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchFormCounts = async () => {
-      try {
-        const response = await axios.get("/api2/v1/analytics/form-counts");
-        if (response.status === 200) {
-          setFormCountsData(response.data as any);
-        } else {
-          setError(`Error al obtener los datos: Código ${response.status}`);
-        }
-      } catch (apiError) {
-        setError(`Error al conectar con la API: ${apiError instanceof Error ? apiError.message : 'Error desconocido'}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchFormCounts();
-  }, []); // El array vacío asegura que se ejecute solo una vez al montar el componente
-
-  if (loading) {
-    return <div>Cargando datos...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
     console.log(fecha),
     <DashboardContent maxWidth="xl">
