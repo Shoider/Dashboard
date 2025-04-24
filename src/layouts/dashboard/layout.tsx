@@ -14,14 +14,14 @@ import { _account } from '../nav-config-account';
 import { dashboardLayoutVars } from './css-vars';
 import { navData } from '../nav-config-dashboard';
 import { MainSection } from '../core/main-section';
-//import { Searchbar } from '../components/searchbar';
+//import { Searchbar } from '../components/searchbar'; //BARRA DE BUSQUEDA
 import { _workspaces } from '../nav-config-workspace';
 import { MenuButton } from '../components/menu-button';
 import { HeaderSection } from '../core/header-section';
-import { LayoutSection } from '../core/layout-section';
-import { AccountPopover } from '../components/account-popover';
-//import { LanguagePopover } from '../components/language-popover';
-//import { NotificationsPopover } from '../components/notifications-popover';
+import { LayoutSection } from '../core/layout-section'; 
+import { AccountPopover } from '../components/account-popover'; //CUENTA
+//import { LanguagePopover } from '../components/language-popover'; ///IDIOMAS
+//import { NotificationsPopover } from '../components/notifications-popover';//NOTIFICACIONES
 
 import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
