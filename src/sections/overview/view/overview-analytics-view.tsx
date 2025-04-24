@@ -22,21 +22,21 @@ import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
 // ----------------------------------------------------------------------
 ///VPN
 const seqVPN = data.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-// Función para sumar los números de seqValue
+// Función para sumar los números de seqVPN
 const sumSeqVPN = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqVPN2 = sumSeqVPN(seqVPN); // Suma los valores de seqValue
+const seqVPN2 = sumSeqVPN(seqVPN); // Suma los valores de seqVPN
 ///INTERNET
 const seqINTERNET = data2.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
 const sumSeqINTERNET = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqINTERNET2 = sumSeqINTERNET(seqINTERNET); // Suma los valores de seqValue
+const seqINTERNET2 = sumSeqINTERNET(seqINTERNET); // Suma los valores de seqINTERNET
 ///TELEFONIA
 const seqTELEFONIA = data3.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
 const sumSeqTELEFONIA = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqTELEFONIA2 = sumSeqTELEFONIA(seqTELEFONIA); // Suma los valores de seqValue
+const seqTELEFONIA2 = sumSeqTELEFONIA(seqTELEFONIA); // Suma los valores de seqTELEFONIA
 ///RFC
 const seqRFC = data4.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
 const sumSeqRFC = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqRFC2 = sumSeqRFC(seqRFC); // Suma los valores de seqValue
+const seqRFC2 = sumSeqRFC(seqRFC); // Suma los valores de seqRFC
 
 export function OverviewAnalyticsView() {
 
