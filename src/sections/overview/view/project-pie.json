@@ -1,0 +1,18 @@
+[
+  {
+    "label": "Vpn",
+    "value": 5
+  },
+  {
+    "label": "Internet",
+    "value": 3
+  },
+  {
+    "label": "Rfc",
+    "value": 6
+  },
+  {
+    "label": "Tel",
+    "value": 6
+  }
+]

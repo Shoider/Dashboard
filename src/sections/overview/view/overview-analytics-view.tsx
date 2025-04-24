@@ -13,8 +13,11 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import data from './project-vpn.json'; // Importa el JSON de vpn, se tendria que modificar
 import data4 from './project-rfc.json'; // Importa el JSON de rfc
+import data5 from './project-pie.json'; // Importa el JSON para pie
+import data6 from './project-bar.json'; // Importa el JSON para bar
 import data2 from './project-internet.json'; // Importa el JSON de internet
 import data3 from './project-telefonia.json'; // Importa el JSON de telefonia
+import data7 from './project-bar-pasada.json'; // Importa el JSON para bar
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
@@ -23,20 +26,33 @@ import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
 ///VPN
 const seqVPN = data.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
 // Función para sumar los números de seqVPN
-const sumSeqVPN = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqVPN2 = sumSeqVPN(seqVPN); // Suma los valores de seqVPN
+//const sumSeqVPN = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+//const seqVPN2 = sumSeqVPN(seqVPN); // Suma los valores de seqVPN
 ///INTERNET
 const seqINTERNET = data2.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-const sumSeqINTERNET = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqINTERNET2 = sumSeqINTERNET(seqINTERNET); // Suma los valores de seqINTERNET
+//const sumSeqINTERNET = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+//const seqINTERNET2 = sumSeqINTERNET(seqINTERNET); // Suma los valores de seqINTERNET
 ///TELEFONIA
 const seqTELEFONIA = data3.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-const sumSeqTELEFONIA = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqTELEFONIA2 = sumSeqTELEFONIA(seqTELEFONIA); // Suma los valores de seqTELEFONIA
+//const sumSeqTELEFONIA = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+//const seqTELEFONIA2 = sumSeqTELEFONIA(seqTELEFONIA); // Suma los valores de seqTELEFONIA
 ///RFC
 const seqRFC = data4.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-const sumSeqRFC = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-const seqRFC2 = sumSeqRFC(seqRFC); // Suma los valores de seqRFC
+//const sumSeqRFC = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
+//const seqRFC2 = sumSeqRFC(seqRFC); // Suma los valores de seqRFC
+
+const seqPIE = data5.map((item) => Number(item.value)); // Convierte cada valor de "SEQ" a número
+const seqBARINTERNET = data6.map((item) => Number(item.Cuenta.Internet)); // Convierte cada valor de "SEQ" a número
+const seqBARRFC = data6.map((item) => Number(item.Cuenta.RFC)); // Convierte cada valor de "SEQ" a número
+const seqBARVPN = data6.map((item) => Number(item.Cuenta.VPN)); // Convierte cada valor de "SEQ" a número
+const seqBARTELEFONIA = data6.map((item) => Number(item.Cuenta.Telefono)); // Convierte cada valor de "SEQ" a número
+const fecha = data6.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
+///CONSTANTES PARA SEMANA PASADA
+const seqBARINTERNETPASADA = data7.map((item) => Number(item.Cuenta.Internet)); // Convierte cada valor de "SEQ" a número
+const seqBARRFCPASADA = data7.map((item) => Number(item.Cuenta.RFC)); // Convierte cada valor de "SEQ" a número
+const seqBARVPNPASADA = data7.map((item) => Number(item.Cuenta.VPN)); // Convierte cada valor de "SEQ" a número
+const seqBARTELEFONIAPASADA = data7.map((item) => Number(item.Cuenta.Telefono)); // Convierte cada valor de "SEQ" a número
+const fechaPASADA = data7.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
 
 export function OverviewAnalyticsView() {
 
@@ -72,7 +88,7 @@ export function OverviewAnalyticsView() {
   }
 
   return (
-    //console.log(seqValue2),
+    console.log(fecha),
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Hola, Bienvenido 👋 
@@ -83,7 +99,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="VPN"
             percent={-200}
-            total={seqVPN2}
+            total={seqPIE[0]}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -96,7 +112,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="RFC"
             percent={600}
-            total={seqRFC2}
+            total={seqPIE[2]}
             color="secondary"
             icon={<ShuffleIcon fontSize="large" />}
             chart={{
@@ -110,7 +126,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="INTERNET"
             percent={-600}
-            total={seqINTERNET2}
+            total={seqPIE[1]}
             color="warning"
             icon={<WifiIcon fontSize="large" />}
             chart={{
@@ -124,7 +140,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="TELEFONÍA"
             percent={-800}
-            total={seqTELEFONIA2}
+            total={seqPIE[3]}
             color="error"
             icon={<PhoneIcon fontSize="large" />}
             chart={{
@@ -139,10 +155,10 @@ export function OverviewAnalyticsView() {
             title="Llenado de formatos totales"
             chart={{
               series: [
-                { label: 'VPN', value: seqVPN2 },
-                { label: 'Ampliación de Internet', value: seqINTERNET2 },
-                { label: 'RFC', value: seqRFC2 },
-                { label: 'Teléfonia', value: seqTELEFONIA2 },
+                { label: 'VPN', value: seqPIE[0] },
+                { label: 'Ampliación de Internet', value: seqPIE[1] },
+                { label: 'RFC', value: seqPIE[2] },
+                { label: 'Teléfonia', value: seqPIE[3] },
               ],
             }}
           />
@@ -151,14 +167,14 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
             title="Formatos llenados esta semana"
-            subheader="Semana del 21-25 de abril"
+            subheader= {"Semana del : "+fecha[0] + " al "+fecha[5]} 
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
               series: [
-                { name: 'VPN', data: seqVPN },
-                { name: 'RFC', data: seqRFC},
-                { name: 'INTERNET', data: seqINTERNET },
-                { name: "TELEFONÍA", data: seqTELEFONIA },
+                { name: 'VPN', data: seqBARVPN },
+                { name: 'RFC', data: seqBARRFC},
+                { name: 'INTERNET', data: seqBARINTERNET },
+                { name: "TELEFONÍA", data: seqBARTELEFONIA },
               ],
             }}
           />
@@ -166,14 +182,14 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
             title="Formatos llenados la semana anterior"
-            subheader="Semana del 14-18 de abril"
+            subheader= {"Semana del : "+fechaPASADA[0] + " al "+fechaPASADA[5]} 
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
               series: [
-                { name: 'VPN', data: [0,0,0,0,0,0] },
-                { name: 'RFC', data: [0,0,0,0,0,0] },
-                { name: 'INTERNET', data: [0,0,0,0,0,0]  },
-                { name: "TELEFONÍA", data: [0,0,0,0,0,0]  },
+                { name: 'VPN', data: seqBARVPNPASADA },
+                { name: 'RFC', data: seqBARRFCPASADA},
+                { name: 'INTERNET', data: seqBARINTERNETPASADA },
+                { name: "TELEFONÍA", data: seqBARTELEFONIAPASADA },
               ],
             }}
           />

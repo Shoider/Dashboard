@@ -1,0 +1,56 @@
+[
+  {
+    "Cuenta": {
+      "Internet": 0,
+      "RFC": 0,
+      "Telefono": 0,
+      "VPN": 0
+    },
+    "Fecha": "2025-04-14"
+  },
+  {
+    "Cuenta": {
+      "Internet": 5,
+      "RFC": 0,
+      "Telefono": 5,
+      "VPN": 3
+    },
+    "Fecha": "2025-04-15"
+  },
+  {
+    "Cuenta": {
+      "Internet": 0,
+      "RFC": 1,
+      "Telefono": 1,
+      "VPN": 0
+    },
+    "Fecha": "2025-04-16"
+  },
+  {
+    "Cuenta": {
+      "Internet": 0,
+      "RFC": 0,
+      "Telefono": 0,
+      "VPN": 0
+    },
+    "Fecha": "2025-04-17"
+  },
+  {
+    "Cuenta": {
+      "Internet": 0,
+      "RFC": 0,
+      "Telefono": 0,
+      "VPN": 0
+    },
+    "Fecha": "2025-04-18"
+  },
+  {
+    "Cuenta": {
+      "Internet": 0,
+      "RFC": 0,
+      "Telefono": 0,
+      "VPN": 0
+    },
+    "Fecha": "2025-04-19"
+  }
+]
