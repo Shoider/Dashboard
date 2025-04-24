@@ -1,32 +1,39 @@
-FROM node:23.10.0-alpine3.21
+FROM node:20-alpine3.18
 
+# Instalación de dependencias del sistema
 RUN apk add --no-cache curl
 
-RUN addgroup -g 1001 front && adduser -D -u 1001 -G front front
+# Creación de usuario no root
+RUN addgroup -g 1001 front && \
+    adduser -D -u 1001 -G front front
 
 WORKDIR /app
 
-# Copia la carpeta 'dist' (con los archivos construidos de Vite)
-COPY --chown=front ./dist .
+# Copiar solo lo necesario para la instalación de dependencias primero
+COPY --chown=front package.json package-lock.json ./
 
-# Copia tu configuración personalizada de Nginx para el dashboard (opcional)
-# COPY ./nginx/dashboard.conf /etc/nginx/conf.d/
+# Instalar dependencias de producción
+RUN npm ci --only=production && \
+    npm install sharp && \
+    npm cache clean --force
 
-# Copia las imagenes
+# Copiar el resto de la aplicación
+COPY --chown=front ./dist ./dist
 COPY --chown=front public ./public
 
-# Elimina la configuración default de Nginx
-# RUN rm /etc/nginx/conf.d/default.conf
-
+# Variables de entorno
 ENV NODE_ENV=production
 ENV PORT=3039
+ENV HOST=0.0.0.0
 
-RUN npm install sharp
+# Permisos
+RUN chown -R front:front /app
 
 USER front
 
-EXPOSE 3039
+# Healthcheck mejorado
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:3039 || exit 1
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://dashboard:3039 || exit 1
-
-CMD ["npx", "serve", "-s", "dist", "-p", "3039"]
+# Usar serve para servir la aplicación estática
+CMD ["npx", "serve", "-s", "dist", "-l", "tcp://0.0.0.0:3039"]
