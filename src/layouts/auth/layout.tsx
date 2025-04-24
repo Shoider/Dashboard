@@ -58,8 +58,8 @@ export function AuthLayout({
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
           {/** @slot Help link */}
-          <Link href="#" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }}>
-            Need help?
+          <Link href="http://172.29.206.227" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }}>
+            ¿Necesitas ayuda?
           </Link>
         </Box>
       ),

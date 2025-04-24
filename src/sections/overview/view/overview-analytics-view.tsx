@@ -82,7 +82,7 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="VPN"
-            percent={-100}
+            percent={-200}
             total={seqVPN2}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
@@ -95,7 +95,7 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="RFC"
-            percent={20}
+            percent={600}
             total={seqRFC2}
             color="secondary"
             icon={<ShuffleIcon fontSize="large" />}
@@ -109,7 +109,7 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="INTERNET"
-            percent={-300}
+            percent={-600}
             total={seqINTERNET2}
             color="warning"
             icon={<WifiIcon fontSize="large" />}
@@ -123,7 +123,7 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="TELEFONÍA"
-            percent={-20}
+            percent={-800}
             total={seqTELEFONIA2}
             color="error"
             icon={<PhoneIcon fontSize="large" />}

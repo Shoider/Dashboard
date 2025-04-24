@@ -12,7 +12,7 @@ export const _account: AccountPopoverProps['data'] = [
   },
   {
     label: 'Profile',
-    href: '#',
+    href: '/user',
     icon: <Iconify width={22} icon="solar:shield-keyhole-bold-duotone" />,
   },
   {

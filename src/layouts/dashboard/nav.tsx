@@ -182,7 +182,7 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
                       {item.title}{/**TITULOS DE BARRA */}
                     </Box>
 
-                    {item.info && item.info} {/**muestra el "+3" que esta  a ldo de blog */}
+                    {/*item.info && item.info} {/**muestra el "+3" que esta  a ldo de blog */}
                   </ListItemButton>
                 </ListItem>
               );
@@ -191,7 +191,7 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
         </Box>
       </Scrollbar>
 
-      {slots?.bottomArea} {/**¿qué hace? */}
+      {slots?.bottomArea} {/**¿qué hace?, se puede renderizar, pero no se ocupa */}
 
      
     </>
