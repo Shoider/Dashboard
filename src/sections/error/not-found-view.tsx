@@ -5,23 +5,15 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
 
-import { Logo } from 'src/components/logo';
+import { LogoConagua } from 'src/components/logo/logo-conagua';
 
 // ----------------------------------------------------------------------
 
 export function NotFoundView() {
   return (
     <>
-      {/*<Logo sx={{ position: 'fixed', top: 20, left: 20 }} />*/}
-      <Box
-          component="img"
-          src="/assets/illustrations/Conagua.png"
-          sx={{
-            width: 200,
-            height: 'auto',
-            //my: { xs: 5, sm: 10 },
-          }}
-        />
+      <LogoConagua sx={{ position: 'fixed', top: 20, left: 20 }} />
+      
       <Container
         sx={{
           py: 10,

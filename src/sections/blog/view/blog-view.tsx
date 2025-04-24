@@ -53,7 +53,7 @@ export function BlogView({ posts }: Props) {
       <Box
         sx={{
           mb: 5,
-          display: 'flex',
+          display: 'none',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}

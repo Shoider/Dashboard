@@ -13,12 +13,11 @@ import Drawer, { drawerClasses } from '@mui/material/Drawer';
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
-//funcion que crea el logo
-//import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
+//funcion que muestra el logo, y renderiza a pagina principal (redirecciona)
+import { LogoConagua } from 'src/components/logo/logo-conagua';
 
-import { WorkspacesPopover } from '../components/workspaces-popover';
-
+//import { WorkspacesPopover } from '../components/workspaces-popover';
 import type { NavItem } from '../nav-config-dashboard';
 import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
 
@@ -114,18 +113,8 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
 
   return (
     <>
-      {/*<Logo />*/}
-      <Box
-          component="img"
-          src="/assets/illustrations/Conagua.png"
-          sx={{
-            width: 200,
-            height: 'auto',
-            
-          }}
-        />
-
-
+      <LogoConagua />
+      
       {slots?.topArea}
 
       {/*<WorkspacesPopover data={workspaces} sx={{ my: 2 }} />*/}
