@@ -3,7 +3,6 @@ import { mergeClasses } from 'minimal-shared/utils';
 import Link from '@mui/material/Link';
 import { styled } from '@mui/material/styles';
 
-//import { RouterLink } from 'src/routes/components';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +22,6 @@ export function LogoConagua({
 }: LogoProps) {
   return (
     <LogoRoot
-      //component={RouterLink}
       href={href}
       aria-label="Logo"
       underline="none"
