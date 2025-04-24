@@ -39,7 +39,7 @@ export function LogoConagua({
       {...other}
     >
       <img
-        src="public/assets/illustrations/Conagua.png"
+        src="src/components/logo/Conagua.png"
         alt="Conagua Logo"
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
       />
