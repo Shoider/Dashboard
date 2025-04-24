@@ -168,7 +168,8 @@ const baseChartOptions = (theme: Theme): ChartOptions => {
        * https://apexcharts.com/docs/options/plotoptions/pie/
        */
       pie: {
-        donut: { labels: { show: true, value: { ...LABEL_VALUE }, total: { ...LABEL_TOTAL } } },
+        expandOnClick: true,
+        donut: {  labels: { show: true, value: { ...LABEL_VALUE }, total: { ...LABEL_TOTAL }} },
       },
       /**
        * radialBar
