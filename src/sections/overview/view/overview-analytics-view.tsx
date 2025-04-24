@@ -11,48 +11,39 @@ import VpnLockIcon from '@mui/icons-material/VpnLock';
 import { DashboardContent } from 'src/layouts/dashboard';
 //import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
 
-import data from './project-vpn.json'; // Importa el JSON de vpn, se tendria que modificar
-import data4 from './project-rfc.json'; // Importa el JSON de rfc
-import data5 from './project-pie.json'; // Importa el JSON para pie
-import data6 from './project-bar.json'; // Importa el JSON para bar
-import data2 from './project-internet.json'; // Importa el JSON de internet
-import data3 from './project-telefonia.json'; // Importa el JSON de telefonia
-import data7 from './project-bar-pasada.json'; // Importa el JSON para bar
+import data from './project-vpn.json'; // Importa el JSON de vpn
+import data4 from './project-rfc.json'; 
+import data5 from './project-pie.json'; 
+import data6 from './project-bar.json'; 
+import data2 from './project-internet.json';
+import data3 from './project-telefonia.json'; 
+import data7 from './project-bar-pasada.json'; 
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
 
 // ----------------------------------------------------------------------
-///VPN
-const seqVPN = data.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-// Función para sumar los números de seqVPN
-//const sumSeqVPN = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-//const seqVPN2 = sumSeqVPN(seqVPN); // Suma los valores de seqVPN
-///INTERNET
-const seqINTERNET = data2.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-//const sumSeqINTERNET = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-//const seqINTERNET2 = sumSeqINTERNET(seqINTERNET); // Suma los valores de seqINTERNET
-///TELEFONIA
-const seqTELEFONIA = data3.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-//const sumSeqTELEFONIA = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-//const seqTELEFONIA2 = sumSeqTELEFONIA(seqTELEFONIA); // Suma los valores de seqTELEFONIA
+///VPN SE OCUPA PARA VALORES TOTALES DE AÑO
+const seqVPN = data.map((item) => Number(item.seq)); // Convierte cada valor de "seq" a número
+///INTERNET SE OCUPA PARA VALORES TOTALES DE AÑO
+const seqINTERNET = data2.map((item) => Number(item.seq)); 
+///TELEFONIA SE OCUPA PARA VALORES TOTALES DE AÑO
+const seqTELEFONIA = data3.map((item) => Number(item.seq)); 
 ///RFC
-const seqRFC = data4.map((item) => Number(item.seq)); // Convierte cada valor de "SEQ" a número
-//const sumSeqRFC = (values: number[]) => values.reduce((acc, curr) => acc + curr, 0);
-//const seqRFC2 = sumSeqRFC(seqRFC); // Suma los valores de seqRFC
-
-const seqPIE = data5.map((item) => Number(item.value)); // Convierte cada valor de "SEQ" a número
-const seqBARINTERNET = data6.map((item) => Number(item.Cuenta.Internet)); // Convierte cada valor de "SEQ" a número
-const seqBARRFC = data6.map((item) => Number(item.Cuenta.RFC)); // Convierte cada valor de "SEQ" a número
-const seqBARVPN = data6.map((item) => Number(item.Cuenta.VPN)); // Convierte cada valor de "SEQ" a número
-const seqBARTELEFONIA = data6.map((item) => Number(item.Cuenta.Telefono)); // Convierte cada valor de "SEQ" a número
+const seqRFC = data4.map((item) => Number(item.seq)); 
+//CONSTANTES DE ESTA SEMANA
+const seqPIE = data5.map((item) => Number(item.value)); 
+const seqBARINTERNET = data6.map((item) => Number(item.Cuenta.Internet)); 
+const seqBARRFC = data6.map((item) => Number(item.Cuenta.RFC)); 
+const seqBARVPN = data6.map((item) => Number(item.Cuenta.VPN)); 
+const seqBARTELEFONIA = data6.map((item) => Number(item.Cuenta.Telefono)); 
 const fecha = data6.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
 ///CONSTANTES PARA SEMANA PASADA
-const seqBARINTERNETPASADA = data7.map((item) => Number(item.Cuenta.Internet)); // Convierte cada valor de "SEQ" a número
-const seqBARRFCPASADA = data7.map((item) => Number(item.Cuenta.RFC)); // Convierte cada valor de "SEQ" a número
-const seqBARVPNPASADA = data7.map((item) => Number(item.Cuenta.VPN)); // Convierte cada valor de "SEQ" a número
-const seqBARTELEFONIAPASADA = data7.map((item) => Number(item.Cuenta.Telefono)); // Convierte cada valor de "SEQ" a número
-const fechaPASADA = data7.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
+const seqBARINTERNETPASADA = data7.map((item) => Number(item.Cuenta.Internet)); 
+const seqBARRFCPASADA = data7.map((item) => Number(item.Cuenta.RFC)); 
+const seqBARVPNPASADA = data7.map((item) => Number(item.Cuenta.VPN)); 
+const seqBARTELEFONIAPASADA = data7.map((item) => Number(item.Cuenta.Telefono)); 
+const fechaPASADA = data7.map((item) => String(item.Fecha)); 
 
 export function OverviewAnalyticsView() {
 
@@ -167,11 +158,11 @@ export function OverviewAnalyticsView() {
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
             title="Formatos llenados esta semana"
-            subheader= {"Semana del : "+fecha[0] + " al "+fecha[5]} 
+            subheader= {"Semana del : "+fecha[0] + " al "+fecha[5]} //TIPO 'String'
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
               series: [
-                { name: 'VPN', data: seqBARVPN },
+                { name: 'VPN', data: seqBARVPN }, //TIPO 'Number'
                 { name: 'RFC', data: seqBARRFC},
                 { name: 'INTERNET', data: seqBARINTERNET },
                 { name: "TELEFONÍA", data: seqBARTELEFONIA },
