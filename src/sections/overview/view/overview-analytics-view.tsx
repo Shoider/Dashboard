@@ -49,13 +49,14 @@ export function OverviewAnalyticsView() {
 
   // Llama a la API al cargar el componente
   let seqPIETest;
+  const [allValues, setAllValues] = useState<number[]>([]); // Estado para almacenar los valores de "value"
 
   axios.get('/api2/v1/form-counts')
   .then(response => {
-    const jsonData = response.data; // Obtenemos el JSON de la respuesta
-    console.log('Datos crudos:', jsonData); // Muestra el JSON en consola
-
-    seqPIETest = jsonData.map((item) => Number(item.value));
+    const jsonData : {label: string ; value: number}[] = response.data; // Obtenemos el JSON de la respuesta
+    setAllValues(jsonData.map((item) => item.value)); // Accede a los valores de "value"
+    console.log('Valores de value:', allValues); // Muestra los valores en consola
+    console.log('Valores de value REAL:', seqPIE);//COMPARAR QUE SALGA LO MISMO  
   })
   .catch(apiError => {
     console.error('Error al llamar a la API:', apiError);
@@ -129,10 +130,10 @@ export function OverviewAnalyticsView() {
             title="Llenado de formatos totales"
             chart={{
               series: [
-                { label: 'VPN', value: seqPIE[0] },
-                { label: 'Ampliación de Internet', value: seqPIE[1] },
-                { label: 'RFC', value: seqPIE[2] },
-                { label: 'Teléfonia', value: seqPIE[3] },
+                { label: 'VPN', value: allValues[0] },
+                { label: 'Ampliación de Internet', value: allValues[1] },
+                { label: 'RFC', value: allValues[2] },
+                { label: 'Teléfonia', value: allValues[3] },
               ],
             }}
           />
