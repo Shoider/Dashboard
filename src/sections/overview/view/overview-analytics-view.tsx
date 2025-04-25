@@ -13,11 +13,8 @@ import { DashboardContent } from 'src/layouts/dashboard';
 
 import data from './project-vpn.json'; // Importa el JSON de vpn
 import data4 from './project-rfc.json'; 
-import data5 from './project-pie.json'; 
-import data6 from './project-bar.json'; 
 import data2 from './project-internet.json';
 import data3 from './project-telefonia.json'; 
-import data7 from './project-bar-pasada.json'; 
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
@@ -30,48 +27,60 @@ const seqINTERNET = data2.map((item) => Number(item.seq));
 ///TELEFONIA SE OCUPA PARA VALORES TOTALES DE AÑO
 const seqTELEFONIA = data3.map((item) => Number(item.seq)); 
 ///RFC
-const seqRFC = data4.map((item) => Number(item.seq)); 
-//CONSTANTES DE ESTA SEMANA
-//const seqPIE = data5.map((item) => Number(item.value)); 
-const seqBARINTERNET = data6.map((item) => Number(item.Cuenta.Internet));  
-const seqBARRFC = data6.map((item) => Number(item.Cuenta.RFC)); 
-const seqBARVPN = data6.map((item) => Number(item.Cuenta.VPN)); 
-const seqBARTELEFONIA = data6.map((item) => Number(item.Cuenta.Telefono)); 
-//const fecha = data6.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
-///CONSTANTES PARA SEMANA PASADA
-const seqBARINTERNETPASADA = data7.map((item) => Number(item.Cuenta.Internet)); 
-const seqBARRFCPASADA = data7.map((item) => Number(item.Cuenta.RFC)); 
-const seqBARVPNPASADA = data7.map((item) => Number(item.Cuenta.VPN)); 
-const seqBARTELEFONIAPASADA = data7.map((item) => Number(item.Cuenta.Telefono)); 
-const fechaPASADA = data7.map((item) => String(item.Fecha)); 
+const seqRFC = data4.map((item) => Number(item.seq));  
 
 export function OverviewAnalyticsView() {
 
   // Llama a la API al cargar el componente
   const [allValues, setAllValues] = useState<number[]>([]); // Estado para almacenar los valores de "value"
-  const [fecha, setFecha] = useState<string[]>([]); // Estado para almacenar los valores de "value"
+  const [fecha, setFecha] = useState<string[]>([]); // Estado para almacenar los valores de "fecha"
+  const [VPN, setVPN] = useState<number[]>([]); // Estado para almacenar los valores de "vpn"
+  const [Internet, setInternet] = useState<number[]>([]); 
+  const [Telefono, setTelefono] = useState<number[]>([]); 
+  const [RFC, setRFC] = useState<number[]>([]); 
+  const [fecha2, setFecha2] = useState<string[]>([]); //Fecha SEMANA PASADA
+  const [VPN2, setVPN2] = useState<number[]>([]); 
+  const [Internet2, setInternet2] = useState<number[]>([]); 
+  const [Telefono2, setTelefono2] = useState<number[]>([]);
+  const [RFC2, setRFC2] = useState<number[]>([]); 
+
   ///REGISTROS TOTALES
   useEffect(()=> {
   axios.get('/api2/v1/form-counts')
   .then(response => {
     const jsonData : {label: string ; value: number}[] = response.data; // Obtenemos el JSON de la respuesta
     setAllValues(jsonData.map((item) => item.value)); // Accede a los valores de "value"
-    console.log('Valores de value:', allValues); // Muestra los valores en consola
-    //console.log('Valores de value REAL:', seqPIE);//COMPARAR QUE SALGA LO MISMO  
   })
   .catch(apiError => {
     console.error('Error al llamar a la API:', apiError);
   });
 },[]); // El segundo argumento vacío asegura que el efecto se ejecute solo una vez al montar el componente
 
-///REGISTROS DE SEMANAS
+///REGISTROS DE  ESTA SEMANA
 useEffect(()=> {
   axios.get('/api2/v1/weekly-registrations')
   .then(response => {
     const jsonData :{ Cuenta:{ Internet: number; RFC: number; Telefono: number; VPN: number}; Fecha: string}[] = response.data; // Obtenemos el JSON de la respuesta
     setFecha(jsonData.map((item) => item.Fecha)); // Accede a los valores de "fecha"
-    console.log('Valores de fecha:', fecha); // Muestra los valores en consola
-    //console.log('Valores de value REAL:', seqPIE);//COMPARAR QUE SALGA LO MISMO  
+    setVPN(jsonData.map((item) => item.Cuenta.VPN)); // Accede a los valores de "vpn"
+    setInternet(jsonData.map((item) => item.Cuenta.Internet)); // Accede a los valores de "vpn"
+    setTelefono(jsonData.map((item) => item.Cuenta.Telefono)); 
+    setRFC(jsonData.map((item) => item.Cuenta.RFC)); 
+  })
+  .catch(apiError => {
+    console.error('Error al llamar a la API:', apiError);
+  });
+},[]);
+///REGISTROS DE SEMANA PASADA
+useEffect(()=> {
+  axios.get('/api2/v1/old-weekly-registrations')//old-weekly-registrations
+  .then(response => {
+    const jsonData :{ Cuenta:{ Internet: number; RFC: number; Telefono: number; VPN: number}; Fecha: string}[] = response.data; // Obtenemos el JSON de la respuesta
+    setFecha2(jsonData.map((item) => item.Fecha)); // Accede a los valores de "fecha"
+    setVPN2(jsonData.map((item) => item.Cuenta.VPN)); // Accede a los valores de "vpn"
+    setInternet2(jsonData.map((item) => item.Cuenta.Internet)); 
+    setTelefono2(jsonData.map((item) => item.Cuenta.Telefono)); 
+    setRFC2(jsonData.map((item) => item.Cuenta.RFC));  
   })
   .catch(apiError => {
     console.error('Error al llamar a la API:', apiError);
@@ -161,10 +170,10 @@ useEffect(()=> {
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
               series: [
-                { name: 'VPN', data: seqBARVPN }, //TIPO 'Number'
-                { name: 'RFC', data: seqBARRFC},
-                { name: 'INTERNET', data: seqBARINTERNET },
-                { name: "TELEFONÍA", data: seqBARTELEFONIA },
+                { name: 'VPN', data: VPN }, //TIPO 'Number'
+                { name: 'RFC', data: RFC},
+                { name: 'INTERNET', data: Internet },
+                { name: "TELEFONÍA", data: Telefono },
               ],
             }}
           />
@@ -172,14 +181,14 @@ useEffect(()=> {
         <Grid size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
             title="Formatos llenados la semana anterior"
-            subheader= {"Semana del : "+fechaPASADA[0] + " al "+fechaPASADA[5]} 
+            subheader= {"Semana del : "+fecha2[0] + " al "+fecha2[5]} 
             chart={{
               categories: ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
               series: [
-                { name: 'VPN', data: seqBARVPNPASADA },
-                { name: 'RFC', data: seqBARRFCPASADA},
-                { name: 'INTERNET', data: seqBARINTERNETPASADA },
-                { name: "TELEFONÍA", data: seqBARTELEFONIAPASADA },
+                { name: 'VPN', data: VPN2 },
+                { name: 'RFC', data: RFC2},
+                { name: 'INTERNET', data: Internet2 },
+                { name: "TELEFONÍA", data: Telefono2 },
               ],
             }}
           />
