@@ -32,12 +32,12 @@ const seqTELEFONIA = data3.map((item) => Number(item.seq));
 ///RFC
 const seqRFC = data4.map((item) => Number(item.seq)); 
 //CONSTANTES DE ESTA SEMANA
-const seqPIE = data5.map((item) => Number(item.value)); 
-const seqBARINTERNET = data6.map((item) => Number(item.Cuenta.Internet)); 
+//const seqPIE = data5.map((item) => Number(item.value)); 
+const seqBARINTERNET = data6.map((item) => Number(item.Cuenta.Internet));  
 const seqBARRFC = data6.map((item) => Number(item.Cuenta.RFC)); 
 const seqBARVPN = data6.map((item) => Number(item.Cuenta.VPN)); 
 const seqBARTELEFONIA = data6.map((item) => Number(item.Cuenta.Telefono)); 
-const fecha = data6.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
+//const fecha = data6.map((item) => String(item.Fecha)); // Convierte cada valor de "fecha" a string
 ///CONSTANTES PARA SEMANA PASADA
 const seqBARINTERNETPASADA = data7.map((item) => Number(item.Cuenta.Internet)); 
 const seqBARRFCPASADA = data7.map((item) => Number(item.Cuenta.RFC)); 
@@ -48,20 +48,35 @@ const fechaPASADA = data7.map((item) => String(item.Fecha));
 export function OverviewAnalyticsView() {
 
   // Llama a la API al cargar el componente
-  let seqPIETest;
   const [allValues, setAllValues] = useState<number[]>([]); // Estado para almacenar los valores de "value"
-
+  const [fecha, setFecha] = useState<string[]>([]); // Estado para almacenar los valores de "value"
+  ///REGISTROS TOTALES
+  useEffect(()=> {
   axios.get('/api2/v1/form-counts')
   .then(response => {
     const jsonData : {label: string ; value: number}[] = response.data; // Obtenemos el JSON de la respuesta
     setAllValues(jsonData.map((item) => item.value)); // Accede a los valores de "value"
     console.log('Valores de value:', allValues); // Muestra los valores en consola
-    console.log('Valores de value REAL:', seqPIE);//COMPARAR QUE SALGA LO MISMO  
+    //console.log('Valores de value REAL:', seqPIE);//COMPARAR QUE SALGA LO MISMO  
   })
   .catch(apiError => {
     console.error('Error al llamar a la API:', apiError);
   });
+},[]); // El segundo argumento vacío asegura que el efecto se ejecute solo una vez al montar el componente
 
+///REGISTROS DE SEMANAS
+useEffect(()=> {
+  axios.get('/api2/v1/weekly-registrations')
+  .then(response => {
+    const jsonData :{ Cuenta:{ Internet: number; RFC: number; Telefono: number; VPN: number}; Fecha: string}[] = response.data; // Obtenemos el JSON de la respuesta
+    setFecha(jsonData.map((item) => item.Fecha)); // Accede a los valores de "fecha"
+    console.log('Valores de fecha:', fecha); // Muestra los valores en consola
+    //console.log('Valores de value REAL:', seqPIE);//COMPARAR QUE SALGA LO MISMO  
+  })
+  .catch(apiError => {
+    console.error('Error al llamar a la API:', apiError);
+  });
+},[]);
   return (
     console.log(fecha),
     <DashboardContent maxWidth="xl">
@@ -74,7 +89,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="VPN"
             percent={-200}
-            total={seqPIE[0]}
+            total={allValues[0]}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
               categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
@@ -87,7 +102,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="RFC"
             percent={600}
-            total={seqPIE[2]}
+            total={allValues[2]}
             color="secondary"
             icon={<ShuffleIcon fontSize="large" />}
             chart={{
@@ -101,7 +116,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="INTERNET"
             percent={-600}
-            total={seqPIE[1]}
+            total={allValues[1]}
             color="warning"
             icon={<WifiIcon fontSize="large" />}
             chart={{
@@ -115,7 +130,7 @@ export function OverviewAnalyticsView() {
           <AnalyticsWidgetSummary
             title="TELEFONÍA"
             percent={-800}
-            total={seqPIE[3]}
+            total={allValues[3]}
             color="error"
             icon={<PhoneIcon fontSize="large" />}
             chart={{
