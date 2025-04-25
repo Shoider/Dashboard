@@ -51,7 +51,11 @@ export function OverviewAnalyticsView() {
   const [InternetWeek, setInternetWeek] = useState<string[]>([]);
   const [TelefonoWeek, setTelefonoWeek] = useState<string[]>([]);
   const [RFCWeek, setRFCWeek] = useState<string[]>([]);
-
+  const [RFCCount, setRFCCount] = useState<number[]>([]); 
+  const [VPNCount, setVPNCount] = useState<number[]>([]); 
+  const [InternetCount, setInternetCount] = useState<number[]>([]); 
+  const [TelefonoCount, setTelefonoCount] = useState<number[]>([]);
+  
   ///REGISTROS TOTALES
   useEffect(()=> {
   axios.get('/api2/v1/form-counts')
@@ -94,29 +98,35 @@ useEffect(()=> {
     console.error('Error al llamar a la API:', apiError);
   });
 },[]);
-///REGISTROS DE SEMANA Y PORCENTAJE
+///REGISTROS DE SEMANA , PORCENTAJE y CONTEO
 useEffect(()=> {
   axios.get('/api2/v1/weekly-stats')
   .then(response => {
-    const jsonData :{internet:{count: number; percent : number; week:string};
-    rfc:{count: number; percent : number; week:string};
-    telefonía:{count: number; percent : number; week:string};
-    vpn:{count: number; percent : number; week:string}}[] = response.data; 
-    setVPNPercent(jsonData.map((item) => item.vpn.percent)); 
-    setVPNWeek(jsonData.map((item) => item.vpn.week)); 
-    setInternetPercent(jsonData.map((item) => item.internet.percent));
-    setInternetWeek(jsonData.map((item) => item.internet.week));
-    setTelefonoPercent(jsonData.map((item) => item.telefonía.percent));
-    setTelefonoWeek(jsonData.map((item) => item.telefonía.week)); 
-    setRFCPercent(jsonData.map((item) => item.rfc.percent));   
-    setRFCWeek(jsonData.map((item) => item.rfc.week));
+    const jsonData :{internet:{count: number; percent : number; week:string}[];    
+    rfc:{count: number; percent : number; week:string}[];
+    telefonia:{count: number; percent : number; week:string}[];
+    vpn:{count: number; percent : number; week:string}[]} = response.data;
+    //const jsonData :{count: number; percent : number; week:string}[]= response.data; 
+    console.log(jsonData.internet); // Obtenemos el JSON de la respuesta
+    setVPNPercent(jsonData.vpn.map((item) => item.percent)); 
+    setVPNWeek(jsonData.vpn.map((item) => item.week)); 
+    setInternetPercent(jsonData.internet.map((item) => item.percent));
+    setInternetWeek(jsonData.internet.map((item) => item.week));
+    setTelefonoPercent(jsonData.telefonia.map((item) => item.percent));
+    setTelefonoWeek(jsonData.telefonia.map((item) => item.week)); 
+    setRFCPercent(jsonData.rfc.map((item) => item.percent));   
+    setRFCWeek(jsonData.rfc.map((item) => item.week));
+    setRFCCount(jsonData.rfc.map((item) => item.count));
+    setVPNCount(jsonData.vpn.map((item) => item.count));
+    setInternetCount(jsonData.internet.map((item) => item.count));
+    setTelefonoCount(jsonData.telefonia.map((item) => item.count));
   })
   .catch(apiError => {
     console.error('Error al llamar a la API:', apiError);
   });
 },[]);
   return (
-    console.log(fecha),
+    //console.log(VPNWeek),
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Hola, Bienvenido 👋 😩 🚫
@@ -126,12 +136,12 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="VPN"
-            percent={VPNPercent[6]}
+            percent={VPNPercent[5]}
             total={allValues[0]}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
               categories: VPNWeek,
-              series: seqVPN,
+              series: VPNCount,
             }}
           />
         </Grid>
@@ -139,13 +149,13 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="RFC"
-            percent={600}
-            total={RFCPercent[6]}
+            percent={RFCPercent[5]}
+            total={allValues[2]}
             color="secondary"
             icon={<ShuffleIcon fontSize="large" />}
             chart={{
               categories: RFCWeek,
-              series:seqRFC,
+              series:RFCCount,
             }}
           />
         </Grid>
@@ -153,13 +163,13 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="INTERNET"
-            percent={InternetPercent[6]}
+            percent={InternetPercent[5]}
             total={allValues[1]}
             color="warning"
             icon={<WifiIcon fontSize="large" />}
             chart={{
               categories: InternetWeek,
-              series: seqINTERNET,
+              series: InternetCount,
             }}
           />
         </Grid>
@@ -167,13 +177,13 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="TELEFONÍA"
-            percent={TelefonoPercent[6]}
+            percent={TelefonoPercent[5]}
             total={allValues[3]}
             color="error"
             icon={<PhoneIcon fontSize="large" />}
             chart={{
               categories: TelefonoWeek,
-              series: seqTELEFONIA,
+              series: TelefonoCount,
             }}
           />
         </Grid>
