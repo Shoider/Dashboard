@@ -43,6 +43,14 @@ export function OverviewAnalyticsView() {
   const [Internet2, setInternet2] = useState<number[]>([]); 
   const [Telefono2, setTelefono2] = useState<number[]>([]);
   const [RFC2, setRFC2] = useState<number[]>([]); 
+  const [VPNPercent, setVPNPercent] = useState<number[]>([]); 
+  const [InternetPercent, setInternetPercent] = useState<number[]>([]);
+  const [TelefonoPercent, setTelefonoPercent] = useState<number[]>([]);
+  const [RFCPercent, setRFCPercent] = useState<number[]>([]);
+  const [VPNWeek, setVPNWeek] = useState<string[]>([]);
+  const [InternetWeek, setInternetWeek] = useState<string[]>([]);
+  const [TelefonoWeek, setTelefonoWeek] = useState<string[]>([]);
+  const [RFCWeek, setRFCWeek] = useState<string[]>([]);
 
   ///REGISTROS TOTALES
   useEffect(()=> {
@@ -86,6 +94,25 @@ useEffect(()=> {
     console.error('Error al llamar a la API:', apiError);
   });
 },[]);
+///REGISTROS DE SEMANA Y PORCENTAJE
+useEffect(()=> {
+  axios.get('/api2/v1/weekly-stats')
+  .then(response => {
+    const jsonData :{internet:{count: number; percent : number; week:string};
+    rfc:{count: number; percent : number; week:string};
+    telefonía:{count: number; percent : number; week:string};
+    vpn:{count: number; percent : number; week:string}}[] = response.data; 
+    setVPNPercent(jsonData.map((item) => item.vpn.percent)); 
+    setVPNWeek(jsonData.map((item) => item.vpn.week)); 
+    setInternetPercent(jsonData.map((item) => item.internet.percent));
+    setInternetWeek(jsonData.map((item) => item.internet.week));
+    setTelefonoPercent(jsonData.map((item) => item.telefonía.percent));
+    setTelefonoWeek(jsonData.map((item) => item.telefonía.week));    
+  })
+  .catch(apiError => {
+    console.error('Error al llamar a la API:', apiError);
+  });
+},[]);
   return (
     console.log(fecha),
     <DashboardContent maxWidth="xl">
@@ -97,11 +124,11 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="VPN"
-            percent={-200}
+            percent={VPNPercent[6]}
             total={allValues[0]}
             icon={<VpnLockIcon fontSize="large" />}
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              categories: VPNWeek,
               series: seqVPN,
             }}
           />
@@ -111,11 +138,11 @@ useEffect(()=> {
           <AnalyticsWidgetSummary
             title="RFC"
             percent={600}
-            total={allValues[2]}
+            total={RFCPercent[6]}
             color="secondary"
             icon={<ShuffleIcon fontSize="large" />}
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              categories: RFCWeek,
               series:seqRFC,
             }}
           />
@@ -124,12 +151,12 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="INTERNET"
-            percent={-600}
+            percent={InternetPercent[6]}
             total={allValues[1]}
             color="warning"
             icon={<WifiIcon fontSize="large" />}
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              categories: InternetWeek,
               series: seqINTERNET,
             }}
           />
@@ -138,12 +165,12 @@ useEffect(()=> {
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <AnalyticsWidgetSummary
             title="TELEFONÍA"
-            percent={-800}
+            percent={TelefonoPercent[6]}
             total={allValues[3]}
             color="error"
             icon={<PhoneIcon fontSize="large" />}
             chart={{
-              categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+              categories: TelefonoWeek,
               series: seqTELEFONIA,
             }}
           />
