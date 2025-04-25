@@ -107,7 +107,9 @@ useEffect(()=> {
     setInternetPercent(jsonData.map((item) => item.internet.percent));
     setInternetWeek(jsonData.map((item) => item.internet.week));
     setTelefonoPercent(jsonData.map((item) => item.telefonía.percent));
-    setTelefonoWeek(jsonData.map((item) => item.telefonía.week));    
+    setTelefonoWeek(jsonData.map((item) => item.telefonía.week)); 
+    setRFCPercent(jsonData.map((item) => item.rfc.percent));   
+    setRFCWeek(jsonData.map((item) => item.rfc.week));
   })
   .catch(apiError => {
     console.error('Error al llamar a la API:', apiError);
