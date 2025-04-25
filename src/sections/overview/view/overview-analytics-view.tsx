@@ -56,9 +56,19 @@ const fechaPASADA = data7.map((item) => String(item.Fecha)); // Convierte cada v
 
 export function OverviewAnalyticsView() {
 
-  const [formCountsData, setFormCountsData] = useState({ series: [] });
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // Llama a la API al cargar el componente
+  let seqPIETest;
+
+  axios.get('/api2/v1/form-counts')
+  .then(response => {
+    const jsonData = response.data; // Obtenemos el JSON de la respuesta
+    console.log('Datos crudos:', jsonData); // Muestra el JSON en consola
+
+    seqPIETest = jsonData.map((item) => Number(item.value));
+  })
+  .catch(apiError => {
+    console.error('Error al llamar a la API:', apiError);
+  });
 
   return (
     console.log(fecha),
