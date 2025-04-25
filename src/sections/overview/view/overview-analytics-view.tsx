@@ -11,24 +11,11 @@ import VpnLockIcon from '@mui/icons-material/VpnLock';
 import { DashboardContent } from 'src/layouts/dashboard';
 //import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
 
-import data from './project-vpn.json'; // Importa el JSON de vpn
-import data4 from './project-rfc.json'; 
-import data2 from './project-internet.json';
-import data3 from './project-telefonia.json'; 
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
 
 // ----------------------------------------------------------------------
-///VPN SE OCUPA PARA VALORES TOTALES DE AÑO
-const seqVPN = data.map((item) => Number(item.seq)); // Convierte cada valor de "seq" a número
-///INTERNET SE OCUPA PARA VALORES TOTALES DE AÑO
-const seqINTERNET = data2.map((item) => Number(item.seq)); 
-///TELEFONIA SE OCUPA PARA VALORES TOTALES DE AÑO
-const seqTELEFONIA = data3.map((item) => Number(item.seq)); 
-///RFC
-const seqRFC = data4.map((item) => Number(item.seq));  
-
 export function OverviewAnalyticsView() {
 
   // Llama a la API al cargar el componente
@@ -105,9 +92,7 @@ useEffect(()=> {
     const jsonData :{internet:{count: number; percent : number; week:string}[];    
     rfc:{count: number; percent : number; week:string}[];
     telefonia:{count: number; percent : number; week:string}[];
-    vpn:{count: number; percent : number; week:string}[]} = response.data;
-    //const jsonData :{count: number; percent : number; week:string}[]= response.data; 
-    console.log(jsonData.internet); // Obtenemos el JSON de la respuesta
+    vpn:{count: number; percent : number; week:string}[]} = response.data;    
     setVPNPercent(jsonData.vpn.map((item) => item.percent)); 
     setVPNWeek(jsonData.vpn.map((item) => item.week)); 
     setInternetPercent(jsonData.internet.map((item) => item.percent));
@@ -126,7 +111,6 @@ useEffect(()=> {
   });
 },[]);
   return (
-    //console.log(VPNWeek),
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Hola, Bienvenido 👋 😩 🚫
