@@ -26,10 +26,9 @@ ENV NODE_ENV=production
 ENV PORT=3039
 ENV HOST=0.0.0.0
 
-# Permisos
-RUN chown -R front:front /app
-
-USER front
+# Permisos DEBUG
+#RUN chown -R front:front /app
+#USER front
 
 # Healthcheck mejorado
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
