@@ -44,72 +44,73 @@ export function OverviewAnalyticsView() {
   const [TelefonoCount, setTelefonoCount] = useState<number[]>([]);
   
   ///REGISTROS TOTALES
-  useEffect(()=> {
-  axios.get('/api2/v1/form-counts')
-  .then(response => {
-    const jsonData : {label: string ; value: number}[] = response.data; // Obtenemos el JSON de la respuesta
-    setAllValues(jsonData.map((item) => item.value)); // Accede a los valores de "value"
-  })
-  .catch(apiError => {
-    console.error('Error al llamar a la API:', apiError);
-  });
-},[]); // El segundo argumento vacío asegura que el efecto se ejecute solo una vez al montar el componente
+  useEffect(() => {
+    // Corrección para manejar el tipo de respuesta de axios
+    axios.get<{ label: string; value: number }[]>('/api2/v1/form-counts')
+      .then(response => {
+        const jsonData = response.data; // Ahora TypeScript sabe que es del tipo correcto
+        setAllValues(jsonData.map(item => item.value));
+      })
+      .catch(apiError => {
+        console.error('Error al llamar a la API:', apiError);
+      });
+  }, []);
 
-///REGISTROS DE  ESTA SEMANA
-useEffect(()=> {
-  axios.get('/api2/v1/weekly-registrations')
-  .then(response => {
-    const jsonData :{ Cuenta:{ Internet: number; RFC: number; Telefono: number; VPN: number}; Fecha: string}[] = response.data; // Obtenemos el JSON de la respuesta
-    setFecha(jsonData.map((item) => item.Fecha)); // Accede a los valores de "fecha"
-    setVPN(jsonData.map((item) => item.Cuenta.VPN)); // Accede a los valores de "vpn"
-    setInternet(jsonData.map((item) => item.Cuenta.Internet)); // Accede a los valores de "vpn"
-    setTelefono(jsonData.map((item) => item.Cuenta.Telefono)); 
-    setRFC(jsonData.map((item) => item.Cuenta.RFC)); 
-  })
-  .catch(apiError => {
-    console.error('Error al llamar a la API:', apiError);
-  });
-},[]);
-///REGISTROS DE SEMANA PASADA
-useEffect(()=> {
-  axios.get('/api2/v1/old-weekly-registrations')//old-weekly-registrations
-  .then(response => {
-    const jsonData :{ Cuenta:{ Internet: number; RFC: number; Telefono: number; VPN: number}; Fecha: string}[] = response.data; // Obtenemos el JSON de la respuesta
-    setFecha2(jsonData.map((item) => item.Fecha)); // Accede a los valores de "fecha"
-    setVPN2(jsonData.map((item) => item.Cuenta.VPN)); // Accede a los valores de "vpn"
-    setInternet2(jsonData.map((item) => item.Cuenta.Internet)); 
-    setTelefono2(jsonData.map((item) => item.Cuenta.Telefono)); 
-    setRFC2(jsonData.map((item) => item.Cuenta.RFC));  
-  })
-  .catch(apiError => {
-    console.error('Error al llamar a la API:', apiError);
-  });
-},[]);
-///REGISTROS DE SEMANA , PORCENTAJE y CONTEO
-useEffect(()=> {
-  axios.get('/api2/v1/weekly-stats')
-  .then(response => {
-    const jsonData :{internet:{count: number; percent : number; week:string}[];    
-    rfc:{count: number; percent : number; week:string}[];
-    telefonia:{count: number; percent : number; week:string}[];
-    vpn:{count: number; percent : number; week:string}[]} = response.data;    
-    setVPNPercent(jsonData.vpn.map((item) => item.percent)); 
-    setVPNWeek(jsonData.vpn.map((item) => item.week)); 
-    setInternetPercent(jsonData.internet.map((item) => item.percent));
-    setInternetWeek(jsonData.internet.map((item) => item.week));
-    setTelefonoPercent(jsonData.telefonia.map((item) => item.percent));
-    setTelefonoWeek(jsonData.telefonia.map((item) => item.week)); 
-    setRFCPercent(jsonData.rfc.map((item) => item.percent));   
-    setRFCWeek(jsonData.rfc.map((item) => item.week));
-    setRFCCount(jsonData.rfc.map((item) => item.count));
-    setVPNCount(jsonData.vpn.map((item) => item.count));
-    setInternetCount(jsonData.internet.map((item) => item.count));
-    setTelefonoCount(jsonData.telefonia.map((item) => item.count));
-  })
-  .catch(apiError => {
-    console.error('Error al llamar a la API:', apiError);
-  });
-},[]);
+  ///REGISTROS DE  ESTA SEMANA
+  useEffect(() => {
+    axios.get<{ Cuenta: { Internet: number; RFC: number; Telefono: number; VPN: number }; Fecha: string }[]>('/api2/v1/weekly-registrations')
+      .then(response => {
+        const jsonData = response.data; // Ahora TypeScript sabe que es del tipo correcto
+        setFecha(jsonData.map(item => item.Fecha));
+        setVPN(jsonData.map(item => item.Cuenta.VPN));
+        setInternet(jsonData.map(item => item.Cuenta.Internet));
+        setTelefono(jsonData.map(item => item.Cuenta.Telefono));
+        setRFC(jsonData.map(item => item.Cuenta.RFC));
+      })
+      .catch(apiError => {
+        console.error('Error al llamar a la API:', apiError);
+      });
+  }, []);
+  ///REGISTROS DE SEMANA PASADA
+  useEffect(() => {
+    axios.get<{ Cuenta: { Internet: number; RFC: number; Telefono: number; VPN: number }; Fecha: string }[]>('/api2/v1/old-weekly-registrations')
+      .then(response => {
+        const jsonData = response.data; // Ahora TypeScript sabe que es del tipo correcto
+        setFecha2(jsonData.map(item => item.Fecha));
+        setVPN2(jsonData.map(item => item.Cuenta.VPN));
+        setInternet2(jsonData.map(item => item.Cuenta.Internet));
+        setTelefono2(jsonData.map(item => item.Cuenta.Telefono));
+        setRFC2(jsonData.map(item => item.Cuenta.RFC));
+      })
+      .catch(apiError => {
+        console.error('Error al llamar a la API:', apiError);
+      });
+  }, []);
+  ///REGISTROS DE SEMANA , PORCENTAJE y CONTEO
+  useEffect(() => {
+    axios.get<{ internet: { count: number; percent: number; week: string }[];
+    rfc: { count: number; percent: number; week: string }[];
+    telefonia: { count: number; percent: number; week: string }[];
+    vpn: { count: number; percent: number; week: string }[] }>('/api2/v1/weekly-stats')
+      .then(response => {
+        const jsonData = response.data; // Ahora TypeScript sabe que es del tipo correcto
+        setVPNPercent(jsonData.vpn.map(item => item.percent));
+        setVPNWeek(jsonData.vpn.map(item => item.week));
+        setInternetPercent(jsonData.internet.map(item => item.percent));
+        setInternetWeek(jsonData.internet.map(item => item.week));
+        setTelefonoPercent(jsonData.telefonia.map(item => item.percent));
+        setTelefonoWeek(jsonData.telefonia.map(item => item.week));
+        setRFCPercent(jsonData.rfc.map(item => item.percent));
+        setRFCWeek(jsonData.rfc.map(item => item.week));
+        setRFCCount(jsonData.rfc.map(item => item.count));
+        setVPNCount(jsonData.vpn.map(item => item.count));
+        setInternetCount(jsonData.internet.map(item => item.count));
+        setTelefonoCount(jsonData.telefonia.map(item => item.count));
+      })
+      .catch(apiError => {
+        console.error('Error al llamar a la API:', apiError);
+      });
+  }, []);
   return (
     <DashboardContent maxWidth="xl">
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
