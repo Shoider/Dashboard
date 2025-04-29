@@ -27,11 +27,12 @@ ENV PORT=3039
 ENV HOST=0.0.0.0
 
 # Permisos DEBUG
-#RUN chown -R front:front /app
-#USER front
+
+RUN chown -R front:front /app
+USER front
 
 # Healthcheck mejorado
-HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=30s --start-period=10s --retries=3 \
     CMD curl -f http://localhost:3039 || exit 1
 
 # Usar serve para servir la aplicación estática
