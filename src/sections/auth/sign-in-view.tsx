@@ -11,7 +11,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
 
+import Alerts from 'src/components/alerts';
 import { Iconify } from 'src/components/iconify';
+//import { resolve } from 'path';
 
 // ----------------------------------------------------------------------
 
@@ -19,9 +21,27 @@ export function SignInView() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
+  const [alert, setAlert] = useState({
+      message: "",
+      severity: "",
+    });
+    const [openAlert, setOpenAlert] = useState(false);
+  
 
   const handleSignIn = useCallback(() => {
-    router.push('/');
+    const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
+    const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
+
+    if (emailInput?.value === 'n@gmail.com' && passwordInput?.value === '123') {
+      router.push('/');
+    }
+    else{setAlert({
+      //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
+      message: "Usuario y/o Constraseña incorrectos.",
+      severity: "error",
+    });
+    setOpenAlert(true);
+    }
   }, [router]);
 
   const renderForm = (
@@ -35,7 +55,7 @@ export function SignInView() {
       <TextField
         fullWidth
         name="email"
-        label="Email address"
+        label="Usuario"
         defaultValue="hello@gmail.com"
         sx={{ mb: 3 }}
         slotProps={{
@@ -50,7 +70,7 @@ export function SignInView() {
       <TextField
         fullWidth
         name="password"
-        label="Password"
+        label="Constraseña"
         defaultValue="@demo1234"
         type={showPassword ? 'text' : 'password'}
         slotProps={{
@@ -92,6 +112,9 @@ export function SignInView() {
           mb: 5,
         }}
       >
+                <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
+
+        
         <Typography variant="h5">Sign in</Typography>
         {/*<Typography
           variant="body2"
@@ -121,6 +144,7 @@ export function SignInView() {
           justifyContent: 'center',
         }}
       >
+        
         {/*<IconButton color="inherit">
           <Iconify width={22} icon="socials:google" />
         </IconButton>
@@ -132,5 +156,6 @@ export function SignInView() {
         </IconButton>*/}
       </Box>
     </>
+    
   );
 }
