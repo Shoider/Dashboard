@@ -16,22 +16,34 @@ import Alerts from 'src/components/alerts';
 import { Iconify } from 'src/components/iconify';
 //import { resolve } from 'path';
 // eslint-disable-next-line react-hooks/rules-of-hooks
-const [formData, setFormData] = useState({
-  emailInput:'',
-  passwordInput:'',
-});
+
 // ----------------------------------------------------------------------
 // eslint-disable-next-line react-hooks/rules-of-hooks   
 
 export function SignInView() {
-  const router = useRouter();
 
+  const [formData, setFormData] = useState({
+    emailInput:'',
+    passwordInput:'',
+  });
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [alert, setAlert] = useState({
       message: "",
       severity: "",
     });
-    const [openAlert, setOpenAlert] = useState(false);
+  const [openAlert, setOpenAlert] = useState(false);
+
   // Llamada API
     const handleSubmit = async (event: { preventDefault: () => void }) => {
       event.preventDefault(); // Evita el comportamiento predeterminado del formulario
@@ -101,25 +113,25 @@ export function SignInView() {
     >
       <TextField
         fullWidth
-        name="email"
+        id='emailInput'
+        name="emailInput"
         label="Usuario"
         defaultValue="hello@gmail.com"
+        onChange={handleChange}
         sx={{ mb: 3 }}
         slotProps={{
           inputLabel: { shrink: true },
         }}
       />
 
-      {/*<Link variant="body2" color="inherit" sx={{ mb: 1.5 }}>
-        Forgot password?
-      </Link>*/}
-
       <TextField
         fullWidth
-        name="password"
+        id='passwordInput'
+        name="passwordInput"
         label="Constraseña"
         defaultValue="@demo1234"
         type={showPassword ? 'text' : 'password'}
+        onChange={handleChange}
         slotProps={{
           inputLabel: { shrink: true },
           input: {
