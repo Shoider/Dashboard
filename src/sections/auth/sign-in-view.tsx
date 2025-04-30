@@ -1,4 +1,5 @@
-import { useState, useCallback } from 'react';
+import axios from 'axios';
+import { useState, useCallback, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 //import Link from '@mui/material/Link';
@@ -14,8 +15,13 @@ import { useRouter } from 'src/routes/hooks';
 import Alerts from 'src/components/alerts';
 import { Iconify } from 'src/components/iconify';
 //import { resolve } from 'path';
-
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const [formData, setFormData] = useState({
+  emailInput:'',
+  passwordInput:'',
+});
 // ----------------------------------------------------------------------
+// eslint-disable-next-line react-hooks/rules-of-hooks   
 
 export function SignInView() {
   const router = useRouter();
@@ -26,13 +32,35 @@ export function SignInView() {
       severity: "",
     });
     const [openAlert, setOpenAlert] = useState(false);
+  // Llamada API
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
+      //event.preventDefault();
+      console.log("Lista formData en submit: ", formData);
+       
+      try {
+        // PDF api
+        const signinResponse = await axios.post("/api3/auth", formData, {
+          responseType: "blob",
+        });
   
+        if (signinResponse.status === 200) {
+          //setPdfUrl(URL.createObjectURL(pdfResponse.data));
+          //setBotonEstado("Descargar PDF");
+        } else {
+          console.error("Error generating PDF");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+       // setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      }
+    };
 
   const handleSignIn = useCallback(() => {
+   
     const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
     const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
 
-    if (emailInput?.value === 'hello@gmail.com' && passwordInput?.value === '@demo1234') {
+    if (emailInput && passwordInput) {
       router.push('/dashboard');
     }
     else{setAlert({
