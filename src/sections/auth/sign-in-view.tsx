@@ -47,37 +47,61 @@ export function SignInView() {
   const [openAlert, setOpenAlert] = useState(false);
 
   // Llamada API
-    const handleSubmit = async (event: { preventDefault: () => void }) => {
-      event.preventDefault(); // Evita el comportamiento predeterminado del formulario
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
-  // Validar que los campos no estén vacíos
-  if (!formData.emailInput || !formData.passwordInput) {
-    setAlert({
-      message: "Por favor, complete todos los campos requeridos.",
-      severity: "error",
-    });
-    setOpenAlert(true);
-    return;
-  }
+    // Validar que los campos no estén vacíos
+    if (!formData.emailInput || !formData.passwordInput) {
+      setAlert({
+        message: "Por favor, complete todos los campos requeridos.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+      return;
+    }
 
   console.log("Datos enviados a la API: ", formData);
 
   try {
     // Llamada a la API
-    const signinResponse = await axios.post("/api3/auth", formData, {
+    const signinResponse = await axios.post("http://127.0.0.1:8001/api3/auth", formData, {
       responseType: "blob",
     });
 
-    if (signinResponse.status === 200) {
+    if (signinResponse.status === 201) {
       // Redirigir al usuario al dashboard
+      setAlert({
+        message: "Inicio de sesión exitoso.",
+        severity: "success",
+      });
+      setOpenAlert(true);
+      console.log("Inicio exitoso")
       router.push("/dashboard");
+
+    } else if (signinResponse.status === 202) {
+      setAlert({
+        message: "Correo y/o Contraseña Incorrectos.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+      console.log("Contraseña Incorrecta")
+
+    } else if (signinResponse.status === 203) {
+      setAlert({
+        message: "Correo y/o Contraseña Incorrectos.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+      console.log("Cuenta Incorrecta")
     } else {
       setAlert({
         message: "Error al iniciar sesión. Por favor, intente nuevamente.",
         severity: "error",
       });
       setOpenAlert(true);
+      console.log("Algo esta mal")
     }
+
   } catch (error) {
     console.error("Error en la llamada a la API:", error);
     setAlert({
@@ -88,7 +112,7 @@ export function SignInView() {
   }
     };
 
-  const handleSignIn = useCallback(() => {
+  /* const handleSignIn = useCallback(() => {
    
     const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
     const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
@@ -103,7 +127,7 @@ export function SignInView() {
     });
     setOpenAlert(true);
     }
-  }, [router]);
+  }, [router]); */
 
   const renderForm = (
     <Box
@@ -118,11 +142,11 @@ export function SignInView() {
         id='emailInput'
         name="emailInput"
         label="Usuario"
-        defaultValue="hello@gmail.com"
+        //defaultValue="hello@gmail.com"
         onChange={handleChange}
         sx={{ mb: 3 }}
         slotProps={{
-          inputLabel: { shrink: true },
+          inputLabel: { shrink: false },
         }}
       />
 
@@ -131,11 +155,11 @@ export function SignInView() {
         id='passwordInput'
         name="passwordInput"
         label="Constraseña"
-        defaultValue="@demo1234"
+        //defaultValue="@demo1234"
         type={showPassword ? 'text' : 'password'}
         onChange={handleChange}
         slotProps={{
-          inputLabel: { shrink: true },
+          inputLabel: { shrink: false },
           input: {
             endAdornment: (
               <InputAdornment position="end">
@@ -173,7 +197,7 @@ export function SignInView() {
           mb: 5,
         }}
       >
-                <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
 
         
         <Typography variant="h5">Sign in</Typography>
