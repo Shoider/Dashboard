@@ -64,7 +64,8 @@ export function SignInView() {
 
   try {
     // Llamada a la API
-    const signinResponse = await axios.post("http://127.0.0.1:8001/api3/auth", formData, {
+    //const signinResponse = await axios.post("http://127.0.0.1:8001/api3/auth", formData, {
+    const signinResponse = await axios.post("/api3/auth", formData, {
       responseType: "blob",
     });
 
