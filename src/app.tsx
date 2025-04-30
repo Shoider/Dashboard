@@ -23,7 +23,7 @@ export default function App({ children }: AppProps) {
     <Fab
       size="medium"
       aria-label="Formulario"
-      href="http://172.29.206.227:8006"
+      href="http://172.29.206.227"
       sx={{
         zIndex: 9,
         right: 20,
