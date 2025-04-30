@@ -32,8 +32,8 @@ export function SignInView() {
     const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
     const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
 
-    if (emailInput?.value === 'n@gmail.com' && passwordInput?.value === '123') {
-      router.push('/');
+    if (emailInput?.value === 'hello@gmail.com' && passwordInput?.value === '@demo1234') {
+      router.push('/dashboard');
     }
     else{setAlert({
       //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],

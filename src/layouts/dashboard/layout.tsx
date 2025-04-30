@@ -15,7 +15,7 @@ import { dashboardLayoutVars } from './css-vars';
 import { navData } from '../nav-config-dashboard';
 import { MainSection } from '../core/main-section';
 //import { Searchbar } from '../components/searchbar'; //BARRA DE BUSQUEDA
-import { _workspaces } from '../nav-config-workspace';
+//import { _workspaces } from '../nav-config-workspace';
 import { MenuButton } from '../components/menu-button';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section'; 
@@ -47,6 +47,7 @@ export function DashboardLayout({
   layoutQuery = 'lg',
 }: DashboardLayoutProps) {
   const theme = useTheme();
+  
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
@@ -70,10 +71,11 @@ export function DashboardLayout({
             onClick={onOpen}
             sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
           />
-                    <NavMobile data={navData} open={open} onClose={onClose} workspaces={_workspaces} />
+                    <NavMobile data={navData} open={open} onClose={onClose}  />
 
         </>
       ),
+      
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0, sm: 0.75 } }}>
           {/** @slot Searchbar */}
@@ -117,7 +119,8 @@ export function DashboardLayout({
         * @Sidebar
        *************************************** */
       sidebarSection={
-        <NavDesktop data={navData} layoutQuery={layoutQuery} workspaces={_workspaces} />
+        <NavDesktop data={navData} layoutQuery={layoutQuery} />
+        
       }
       /** **************************************
        * @Footer
@@ -146,3 +149,4 @@ export function DashboardLayout({
     </LayoutSection>
   );
 }
+

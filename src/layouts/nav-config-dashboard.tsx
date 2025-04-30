@@ -12,12 +12,7 @@ export type NavItem = {
   info?: React.ReactNode;
 };
 
-export const navData = [
-  {
-    title: 'Dashboard',
-    path: '/',
-    icon: icon('ic-analytics'),
-  },
+export const navData :NavItem[] = [
   {
     title: 'User',
     path: '/user',
@@ -26,8 +21,9 @@ export const navData = [
 
   {
     title: 'Sign in',
-    path: '/sign-in',
+    path: '/',
     icon: icon('ic-lock'),
   },
   
 ];
+//console.log(navData)

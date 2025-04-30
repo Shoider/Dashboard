@@ -7,7 +7,7 @@ import type { AccountPopoverProps } from './components/account-popover';
 export const _account: AccountPopoverProps['data'] = [
   {
     label: 'Home',
-    href: '/',
+    href: '/dashboard',
     icon: <Iconify width={22} icon="solar:home-angle-bold-duotone" />,
   },
   {
@@ -17,7 +17,7 @@ export const _account: AccountPopoverProps['data'] = [
   },
   {
     label: 'Settings',
-    href: '#',
+    href: '/settings',
     icon: <Iconify width={22} icon="solar:settings-bold-duotone" />,
   },
 ];

@@ -24,6 +24,9 @@ export type AccountPopoverProps = IconButtonProps & {
     href: string;
     icon?: React.ReactNode;
     info?: React.ReactNode;
+    //disabled?: boolean; // Agrega esta propiedad para habilitar/deshabilitar el elemento
+    
+    //onClick?: () => void;
   }[];
 };
 
@@ -31,7 +34,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
   const router = useRouter();
 
   const pathname = usePathname();
-
+  
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
 
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,10 +47,15 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
 
   const handleClickItem = useCallback(
     (path: string) => {
-      handleClosePopover();
-      router.push(path);
+      // Si el usuario está en "/dashboard" y selecciona "Dashboard", redirige a "/404"
+      if (pathname === '/dashboard' && path === '/dashboard') {
+        router.push('/404');
+      } else {
+        router.push(path); // Navega normalmente
+      }
+      handleClosePopover(); // Cierra el popover
     },
-    [handleClosePopover, router]
+    [pathname, router, handleClosePopover]
   );
 
   return (
@@ -129,7 +137,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Box sx={{ p: 1 }}>
-          <Button fullWidth color="error" size="medium" variant="text">
+          <Button fullWidth href='/' color="error" size="medium" variant="text">
             Logout
           </Button>
         </Box>
