@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, ChangeEvent } from 'react';
 
 import Box from '@mui/material/Box';
 //import Link from '@mui/material/Link';
@@ -27,9 +27,11 @@ export function SignInView() {
     passwordInput:'',
   });
 
-  const handleChange = (event: { target: { name: any; value: any; type: any; checked: any; }; }) => {
-    const { name, value, type, checked } = event.target;
 
+  
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.target;
+  
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: type === "checkbox" ? checked : value,
