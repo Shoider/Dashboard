@@ -27,7 +27,7 @@ export function SignInView() {
     passwordInput:'',
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { name: any; value: any; type: any; checked: any; }; }) => {
     const { name, value, type, checked } = event.target;
 
     setFormData((prevFormData) => ({
