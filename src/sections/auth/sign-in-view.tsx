@@ -45,28 +45,46 @@ export function SignInView() {
   const [openAlert, setOpenAlert] = useState(false);
 
   // Llamada API
+    const handleSubmit = async (event: { preventDefault: () => void }) => {
+      event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
-  const handleSubmit = async (event: { preventDefault: () => void; }) => {
-    //event.preventDefault();
-    console.log("Lista formData en submit: ", formData);
-      
-    try {
-      // PDF api
-      const signinResponse = await axios.post("localhost:8001/api3/auth", formData, {
-        responseType: "blob",
+  // Validar que los campos no estén vacíos
+  if (!formData.emailInput || !formData.passwordInput) {
+    setAlert({
+      message: "Por favor, complete todos los campos requeridos.",
+      severity: "error",
+    });
+    setOpenAlert(true);
+    return;
+  }
+
+  console.log("Datos enviados a la API: ", formData);
+
+  try {
+    // Llamada a la API
+    const signinResponse = await axios.post("/api3/auth", formData, {
+      responseType: "blob",
+    });
+
+    if (signinResponse.status === 200) {
+      // Redirigir al usuario al dashboard
+      router.push("/dashboard");
+    } else {
+      setAlert({
+        message: "Error al iniciar sesión. Por favor, intente nuevamente.",
+        severity: "error",
       });
-
-      if (signinResponse.status === 201) {
-        //setPdfUrl(URL.createObjectURL(pdfResponse.data));
-        //setBotonEstado("Descargar PDF");
-      } else {
-        console.error("Error validando");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // setBotonEstado("Enviar"); // Vuelve a "Enviar" en caso de error
+      setOpenAlert(true);
     }
-  };
+  } catch (error) {
+    console.error("Error en la llamada a la API:", error);
+    setAlert({
+      message: "Ocurrió un error al procesar su solicitud.",
+      severity: "error",
+    });
+    setOpenAlert(true);
+  }
+    };
 
   const handleSignIn = useCallback(() => {
    
@@ -135,7 +153,7 @@ export function SignInView() {
         type="submit"
         color="inherit"
         variant="contained"
-        onClick={handleSignIn}
+        onClick={handleSubmit}
       >
         Sign in
       </Button>
