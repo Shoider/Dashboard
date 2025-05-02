@@ -15,6 +15,8 @@ import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { _myAccount } from 'src/_mock';
+// eslint-disable-next-line import/no-unresolved
+import { useAuth } from 'src/context/AuthContext'
 
 // ----------------------------------------------------------------------
 
@@ -32,7 +34,7 @@ export type AccountPopoverProps = IconButtonProps & {
 
 export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps) {
   const router = useRouter();
-
+  const { logout } = useAuth();
   const pathname = usePathname();
   
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
@@ -137,7 +139,17 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         <Box sx={{ p: 1 }}>
-          <Button fullWidth href='/' color="error" size="medium" variant="text">
+          <Button 
+            fullWidth 
+            href='/' 
+            color="error" 
+            size="medium" 
+            variant="text"
+            onClick={() => {
+              logout();
+              router.push('/');
+            }}
+          >
             Logout
           </Button>
         </Box>

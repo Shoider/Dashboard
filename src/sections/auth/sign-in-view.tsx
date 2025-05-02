@@ -1,5 +1,7 @@
+import type { ChangeEvent } from 'react';
+
 import axios from 'axios';
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
 //import Link from '@mui/material/Link';
@@ -12,9 +14,13 @@ import Typography from '@mui/material/Typography';
 
 import { useRouter } from 'src/routes/hooks';
 
-import Alerts from 'src/components/alerts';
+//import useAuth from './src/context/authContext';
+// eslint-disable-next-line import/no-unresolved
+import { useAuth } from 'src/context/AuthContext'
 //import { Iconify } from 'src/components/iconify';
 //import { resolve } from 'path';
+
+import Alerts from 'src/components/alerts';
  
 
 // ----------------------------------------------------------------------
@@ -27,8 +33,8 @@ export function SignInView() {
     passwordInput:'',
   });
 
+  const { login } = useAuth();
 
-  
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = event.target;
   
@@ -64,9 +70,15 @@ export function SignInView() {
 
   try {
     // Llamada a la API
-    //const signinResponse = await axios.post("http://127.0.0.1:8001/api3/auth", formData, {
-    const signinResponse = await axios.post("/api3/auth", formData, {
-      responseType: "blob",
+    interface SignInResponse {
+      token: string;
+    }
+
+    // CAMBIAR ESTAS
+    const signinResponse = await axios.post<SignInResponse>("http://127.0.0.1:8001/api3/auth", formData, {
+      headers: {
+      'Content-Type': 'application/json',
+      },
     });
 
     if (signinResponse.status === 201) {
@@ -76,7 +88,10 @@ export function SignInView() {
         severity: "success",
       });
       setOpenAlert(true);
-      console.log("Inicio exitoso")
+      const token = signinResponse.data.token;
+      login(token);
+      console.log("Inicio exitoso, Token:", token)
+      console.log("Contenido de la respuesta:", signinResponse)
       router.push("/dashboard");
 
     } else if (signinResponse.status === 202) {

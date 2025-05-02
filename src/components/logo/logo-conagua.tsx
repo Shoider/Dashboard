@@ -17,7 +17,7 @@ export function LogoConagua({
   sx,
   disabled,
   className,
-  href = '/',
+  href = '/Dashboard',
   ...other
 }: LogoProps) {
   return (
