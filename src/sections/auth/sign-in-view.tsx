@@ -81,7 +81,7 @@ export function SignInView() {
 
     } else if (signinResponse.status === 202) {
       setAlert({
-        message: "Correo y/o Contraseña Incorrectos.",
+        message: "Cuenta y/o Contraseña Incorrectos.",
         severity: "error",
       });
       setOpenAlert(true);
@@ -89,7 +89,7 @@ export function SignInView() {
 
     } else if (signinResponse.status === 203) {
       setAlert({
-        message: "Correo y/o Contraseña Incorrectos.",
+        message: "Cuenta y/o Contraseña Incorrectos.",
         severity: "error",
       });
       setOpenAlert(true);
