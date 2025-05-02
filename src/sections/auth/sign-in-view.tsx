@@ -75,7 +75,7 @@ export function SignInView() {
     }
 
     // CAMBIAR ESTAS
-    const signinResponse = await axios.post<SignInResponse>("http://127.0.0.1:8001/api3/auth", formData, {
+    const signinResponse = await axios.post<SignInResponse>("api3/auth", formData, {
       headers: {
       'Content-Type': 'application/json',
       },
