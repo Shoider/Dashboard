@@ -6,14 +6,14 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 //import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
+//import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
+//import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
 
 import Alerts from 'src/components/alerts';
-import { Iconify } from 'src/components/iconify';
+//import { Iconify } from 'src/components/iconify';
 //import { resolve } from 'path';
  
 
@@ -39,7 +39,7 @@ export function SignInView() {
   };
 
   const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword] = useState(false);
   const [alert, setAlert] = useState({
       message: "",
       severity: "",
@@ -81,7 +81,7 @@ export function SignInView() {
 
     } else if (signinResponse.status === 202) {
       setAlert({
-        message: "Cuenta y/o Contraseña Incorrectos.",
+        message: "Usuario y/o Contraseña Incorrectos.",
         severity: "error",
       });
       setOpenAlert(true);
@@ -89,11 +89,11 @@ export function SignInView() {
 
     } else if (signinResponse.status === 203) {
       setAlert({
-        message: "Cuenta y/o Contraseña Incorrectos.",
+        message: "Usuario y/o Contraseña Incorrectos.",
         severity: "error",
       });
       setOpenAlert(true);
-      console.log("Cuenta Incorrecta")
+      console.log("Usuario Incorrecto")
     } else {
       setAlert({
         message: "Error al iniciar sesión. Por favor, intente nuevamente.",
@@ -143,11 +143,12 @@ export function SignInView() {
         id='emailInput'
         name="emailInput"
         label="Usuario"
-        //defaultValue="hello@gmail.com"
+        //defaultValue="none"
+        placeholder="Ingrese su usuario"
         onChange={handleChange}
         sx={{ mb: 3 }}
         slotProps={{
-          inputLabel: { shrink: false },
+          inputLabel: { shrink: true },
         }}
       />
 
@@ -156,20 +157,12 @@ export function SignInView() {
         id='passwordInput'
         name="passwordInput"
         label="Constraseña"
+        placeholder="Ingrese su contraseña"
         //defaultValue="@demo1234"
         type={showPassword ? 'text' : 'password'}
         onChange={handleChange}
         slotProps={{
-          inputLabel: { shrink: false },
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
+          inputLabel: { shrink: true },
         }}
         sx={{ mb: 3 }}
       />
