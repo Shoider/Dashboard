@@ -23,15 +23,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      // Llamada a la API para verificar el token
-      await axios.get('/api3/protected', {
+      //prueba con post
+      interface SignInResponse {
+        token: string;
+        message:string;
+        usuario:string;
+      }
+  
+      // CAMBIAR ESTAS
+      const signinResponse = await axios.post<SignInResponse>("api3/auth", token, {
         headers: {
-          Authorization: `${token}`,
-        },
-      });
-      setIsAuthenticated(true); // El token es válido
+          'Content-Type': 'application/json',}
+        });
+      if (signinResponse.status == 200) {
+        console.log("Token valido")
+        setIsAuthenticated(true); // El token es válido
+      } else if (signinResponse.status == 201) {
+        setIsAuthenticated(false)
+        console.log("No hay token mandado")
+      } else if (signinResponse.status == 401) {
+        console.log("Error de token invalido")
+        logout()
+      }
     } catch (error) {
-      console.error("Token inválido o expirado:", error);
+      console.error("Error llamando al API:", error);
       logout(); // Si el token no es válido, cierra la sesión
     }
   };
