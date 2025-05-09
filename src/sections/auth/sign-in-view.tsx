@@ -89,7 +89,7 @@ export function SignInView() {
       });
       setOpenAlert(true);
       const token = signinResponse.data.token;
-      login(token);
+      login(token, formData.emailInput);
       console.log("Inicio exitoso, Token:", token)
       console.log("Contenido de la respuesta:", signinResponse)
       router.push("/dashboard");

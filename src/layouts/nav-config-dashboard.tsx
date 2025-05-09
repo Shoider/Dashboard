@@ -20,8 +20,8 @@ export const navData :NavItem[] = [
   },
 
   {
-    title: 'Sign in',
-    path: '/',
+    title: 'VPN',
+    path: '/vpn',
     icon: icon('ic-lock'),
   },
   
