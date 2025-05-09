@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import axios from 'axios';
 import { useState, useEffect, useContext, createContext } from 'react';
 
+//import { LogoConagua } from 'src/components/logo/logo-conagua';
+
 type AuthContextType = {
   isAuthenticated: boolean;
   login: (token: string) => void;
@@ -12,41 +14,43 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem("authToken"));
+  //const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Función para verificar la validez del token
   const verifyToken = async () => {
     const token = localStorage.getItem("authToken");
-    if (!token) {
-      setIsAuthenticated(false);
-      return;
-    }
+    //if (!token) {
+      //setIsAuthenticated(false);
+      //return;
+    //}
 
     try {
       //prueba con post
-      interface SignInResponse {
-        token: string;
-        message:string;
-        usuario:string;
-      }
-  
-      // CAMBIAR ESTAS
-      const signinResponse = await axios.post<SignInResponse>("api3/auth", token, {
+      //console.log("Enviando token a la API:", { token });
+      const signinResponse = await axios.post("api3/validar_token",{ token}, {
         headers: {
           'Content-Type': 'application/json',}
         });
-      if (signinResponse.status == 200) {
+      if (signinResponse.status == 210) {
         console.log("Token valido")
         setIsAuthenticated(true); // El token es válido
-      } else if (signinResponse.status == 201) {
+        return;
+      } else if (signinResponse.status == 211) {
         setIsAuthenticated(false)
-        console.log("No hay token mandado")
+        console.log("token expirado")
+        logout();
+      } else if(signinResponse.status == 212){
+        setIsAuthenticated(false)
+        console.log("token invalido")
+        logout();
       } else if (signinResponse.status == 401) {
-        console.log("Error de token invalido")
+        console.log("Error de token invalido, error api auth")
         logout()
       }
     } catch (error) {
-      console.error("Error llamando al API:", error);
+      console.error("Error llamando al API, va a borra el token:", error);
+     // console.log("ERROR EN LLAMAR A ", LogoConagua)
       logout(); // Si el token no es válido, cierra la sesión
     }
   };
