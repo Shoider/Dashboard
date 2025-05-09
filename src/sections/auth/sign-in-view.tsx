@@ -56,94 +56,67 @@ export function SignInView() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
-    // Validar que los campos no estén vacíos
-    if (!formData.emailInput || !formData.passwordInput) {
+    console.log("Datos enviados a la API: ", formData);
+
+    try {
+      // Llamada a la API
+      interface SignInResponse {
+        token: string;
+      }
+
+      // CAMBIAR ESTAS
+      const signinResponse = await axios.post<SignInResponse>("api3/auth", formData, {
+        headers: {
+        'Content-Type': 'application/json',
+        },
+      });
+
+      if (signinResponse.status === 201) {
+        // Redirigir al usuario al dashboard
+        setAlert({
+          message: "Inicio de sesión exitoso.",
+          severity: "success",
+        });
+        setOpenAlert(true);
+        const token = signinResponse.data.token;
+        login(token, formData.emailInput);
+        console.log("Inicio exitoso, Token:", token)
+        console.log("Contenido de la respuesta:", signinResponse)
+        router.push("/dashboard");
+
+      } else if (signinResponse.status === 202) {
+        setAlert({
+          message: "Usuario y/o Contraseña Incorrectos.",
+          severity: "error",
+        });
+        setOpenAlert(true);
+        console.log("Contraseña Incorrecta")
+
+      } else if (signinResponse.status === 203) {
+        setAlert({
+          message: "Usuario y/o Contraseña Incorrectos.",
+          severity: "error",
+        });
+        setOpenAlert(true);
+        console.log("Usuario Incorrecto")
+      } else {
+        setAlert({
+          message: "Error al iniciar sesión. Por favor, intente nuevamente.",
+          severity: "error",
+        });
+        setOpenAlert(true);
+        console.log("Algo esta mal")
+      }
+
+    } catch (error) {
+      console.error("Error en la llamada a la API:", error);
       setAlert({
-        message: "Por favor, complete todos los campos requeridos.",
+        message: "Ocurrió un error al procesar su solicitud.",
         severity: "error",
       });
       setOpenAlert(true);
-      return;
     }
-
-  console.log("Datos enviados a la API: ", formData);
-
-  try {
-    // Llamada a la API
-    interface SignInResponse {
-      token: string;
-    }
-
-    // CAMBIAR ESTAS
-    const signinResponse = await axios.post<SignInResponse>("api3/auth", formData, {
-      headers: {
-      'Content-Type': 'application/json',
-      },
-    });
-
-    if (signinResponse.status === 201) {
-      // Redirigir al usuario al dashboard
-      setAlert({
-        message: "Inicio de sesión exitoso.",
-        severity: "success",
-      });
-      setOpenAlert(true);
-      const token = signinResponse.data.token;
-      login(token, formData.emailInput);
-      console.log("Inicio exitoso, Token:", token)
-      console.log("Contenido de la respuesta:", signinResponse)
-      router.push("/dashboard");
-
-    } else if (signinResponse.status === 202) {
-      setAlert({
-        message: "Usuario y/o Contraseña Incorrectos.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      console.log("Contraseña Incorrecta")
-
-    } else if (signinResponse.status === 203) {
-      setAlert({
-        message: "Usuario y/o Contraseña Incorrectos.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      console.log("Usuario Incorrecto")
-    } else {
-      setAlert({
-        message: "Error al iniciar sesión. Por favor, intente nuevamente.",
-        severity: "error",
-      });
-      setOpenAlert(true);
-      console.log("Algo esta mal")
-    }
-
-  } catch (error) {
-    console.error("Error en la llamada a la API:", error);
-    setAlert({
-      message: "Ocurrió un error al procesar su solicitud.",
-      severity: "error",
-    });
-    setOpenAlert(true);
-  }
-    };
-
-  /* const handleSignIn = useCallback(() => {
-   
-    const emailInput = document.querySelector('input[name="email"]') as HTMLInputElement;
-    const passwordInput = document.querySelector('input[name="password"]') as HTMLInputElement;
-
-    if (emailInput && passwordInput) {
-      router.push('/dashboard');
-    }
-    else{setAlert({
-      //message: 'Por favor, complete todos los campos requeridos: ' + alertaValidacion[1],
-      message: "Usuario y/o Constraseña incorrectos.",
-      severity: "error",
-    });
-    setOpenAlert(true);
-    }
-  }, [router]); */
+  };
 
   const renderForm = (
     <Box
