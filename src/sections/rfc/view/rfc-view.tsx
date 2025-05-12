@@ -90,8 +90,8 @@ export function RFCView() {
                   { id: 'company', label: 'Fecha' },
                   { id: 'role', label: 'Usuario' },
                   { id: 'isVerified', label: 'Correo'},
-                  { id: 'status', label: 'Servicios' },
-                  { id: 'status2', label: 'Autorizó' },
+                  { id: 'status', label: 'Tipo de Cambio' },
+                  { id: 'status', label: 'Autorizó' },
                   { id: '' },
                 ]}
               />
@@ -140,7 +140,7 @@ export function RFCView() {
 export function useTable() {
   const [page, setPage] = useState(0);
   const [orderBy, setOrderBy] = useState('name');
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(6);
   const [selected, setSelected] = useState<string[]>([]);
   const [order, setOrder] = useState<'asc' | 'desc'>('asc');
 
