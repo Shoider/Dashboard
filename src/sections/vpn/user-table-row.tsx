@@ -18,9 +18,9 @@ import { Iconify } from 'src/components/iconify';
 export type UserProps = {
   _id: number;
   nombre: string;
-  extension: number;
   correo: string;
   movimiento: string;
+  puestojefe: string;
 };
 
 type UserTableRowProps = {
@@ -51,11 +51,11 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
 
         <TableCell>{row.nombre}</TableCell>
 
-        <TableCell>{row.extension}</TableCell>
-
         <TableCell>{row.correo}</TableCell>
 
         <TableCell>{row.movimiento}</TableCell>
+
+        <TableCell>{row.puestojefe}</TableCell>
 
 {/*         <TableCell align="center">
           {row.isVerified ? (
