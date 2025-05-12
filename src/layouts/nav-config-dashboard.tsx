@@ -16,22 +16,22 @@ export const navData :NavItem[] = [
   {
     title: 'VPN',
     path: '/vpn',
-    icon: icon('ic-user'),
+    icon: icon('ic-vpn'),
   },
   {
     title: 'Internet',
     path: '/internet',
-    icon: icon('ic-user'),
+    icon: icon('ic-internet'),
   },
   {
     title: 'RFC',
     path: '/rfc',
-    icon: icon('ic-user'),
+    icon: icon('ic-change'),
   },
   {
     title: 'Telefonia',
     path: '/telefonia',
-    icon: icon('ic-user'),
+    icon: icon('ic-phone'),
   },
   
 ];
