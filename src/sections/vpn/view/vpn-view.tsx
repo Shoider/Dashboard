@@ -54,7 +54,7 @@ export function VPNView() {
         <Button
           variant="contained"
           color="inherit"
-          startIcon={<Iconify icon="mingcute:add-line" />}
+          startIcon={<Iconify icon="mingcute:refresh-3-line" />}
         >
           Boton que no hace nada
         </Button>
