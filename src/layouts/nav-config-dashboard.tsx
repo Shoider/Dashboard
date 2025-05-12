@@ -14,15 +14,24 @@ export type NavItem = {
 
 export const navData :NavItem[] = [
   {
-    title: 'User',
-    path: '/user',
-    icon: icon('ic-user'),
-  },
-
-  {
     title: 'VPN',
     path: '/vpn',
-    icon: icon('ic-lock'),
+    icon: icon('ic-user'),
+  },
+  {
+    title: 'Internet',
+    path: '/internet',
+    icon: icon('ic-user'),
+  },
+  {
+    title: 'RFC',
+    path: '/rfc',
+    icon: icon('ic-user'),
+  },
+  {
+    title: 'Telefonia',
+    path: '/telefonia',
+    icon: icon('ic-user'),
   },
   
 ];

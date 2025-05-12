@@ -26,7 +26,7 @@ import type { UserProps } from '../user-table-row';
 
 // ----------------------------------------------------------------------
 
-export function VPNView() {
+export function TelefoniaView() {
   const table = useTable();
 
   const [filterName, setFilterName] = useState('');
@@ -49,7 +49,7 @@ export function VPNView() {
         }}
       >
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          Registros VPN
+          Registros de Telefonia
         </Typography>
         <Button
           variant="contained"
