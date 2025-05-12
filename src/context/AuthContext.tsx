@@ -33,23 +33,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           'Content-Type': 'application/json',}
         });
       if (signinResponse.status == 210) {
-        console.log("Token valido")
+        console.log("Token válido")
         setIsAuthenticated(true); // El token es válido
         return;
       } else if (signinResponse.status == 211) {
         setIsAuthenticated(false)
-        console.log("token expirado")
+        console.log("Token expirado, vuelva a inciar sesión")
         logout();
       } else if(signinResponse.status == 212){
         setIsAuthenticated(false)
-        console.log("token invalido")
+        console.log("Token inválido (y/o modificado)")
         logout();
       } else if (signinResponse.status == 401) {
-        console.log("Error de token invalido, error api auth")
+        console.log("Error de Token inválido, error api auth")
         logout()
       }
     } catch (error) {
-      console.error("Error llamando al API, va a borra el token:", error);
+      console.error("Error llamando al API, se borrará  el token:", error);
      // console.log("ERROR EN LLAMAR A ", LogoConagua)
       logout(); // Si el token no es válido, cierra la sesión
     }

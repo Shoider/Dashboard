@@ -17,6 +17,10 @@ import { ProtectedRoute } from 'src/components/ProtectedRoute';
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const VPNPage = lazy(() => import('src/pages/vpn'));
+export const InternetPage = lazy(() => import('src/pages/internet'));
+export const RFCPage = lazy(() => import('src/pages/rfc'));
+// eslint-disable-next-line import/no-unresolved
+export const TelefoniaPage = lazy(() => import('src/pages/telefonia'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
@@ -81,6 +85,30 @@ export const routesSection: RouteObject[] = [
         element: (
           <ProtectedRoute>
             <VPNPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'internet', 
+        element: (
+          <ProtectedRoute>
+            <InternetPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'rfc', 
+        element: (
+          <ProtectedRoute>
+            <RFCPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'telefonia', 
+        element: (
+          <ProtectedRoute>
+            <TelefoniaPage />
           </ProtectedRoute>
         ),
       },
