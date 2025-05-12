@@ -26,6 +26,7 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 
 import type { UserProps } from '../user-table-row';
 
+
 // ----------------------------------------------------------------------
 
 export function VPNView() {
@@ -54,8 +55,16 @@ export function VPNView() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
+    interface UserVPN {
+      _id: number
+      nombre: string;
+      extension: number;
+      correo: string;
+      movimiento: string;
+    }
+
     try {
-      const VPNResponse = await axios.post<UserProps[]>("api2/v1/vpnGet", {
+      const VPNResponse = await axios.post<UserVPN[]>("api2/v1/vpnGet", {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -132,7 +141,7 @@ export function VPNView() {
                 onSelectAllRows={(checked) =>
                   table.onSelectAllRows(
                     checked,
-                    users.map((user) => user.id)
+                    users.map((user) => user._id.toString())
                   )
                 }
                 headLabel={[
@@ -154,10 +163,10 @@ export function VPNView() {
                   )
                   .map((row) => (
                     <UserTableRow
-                      key={row.id}
+                      key={row._id}
                       row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
+                      selected={table.selected.includes(row._id.toString())}
+                      onSelectRow={() => table.onSelectRow(row._id.toString())}
                     />
                   ))
               ) : (
