@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -9,9 +10,10 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { _users } from 'src/_mock';
+//import { _users } from 'src/_mock';
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import Alerts from 'src/components/alerts';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 
@@ -27,17 +29,64 @@ import type { UserProps } from '../user-table-row';
 // ----------------------------------------------------------------------
 
 export function VPNView() {
+
+  const [alert, setAlert] = useState({
+    message: "",
+    severity: "",
+  });
+  const [openAlert, setOpenAlert] = useState(false);
+
   const table = useTable();
 
   const [filterName, setFilterName] = useState('');
 
+  const [users, setUsers] = useState<UserProps[]>([]); // Estado para los datos de la API
+
   const dataFiltered: UserProps[] = applyFilter({
-    inputData: _users,
+    inputData: users,
     comparator: getComparator(table.order, table.orderBy),
     filterName,
   });
 
   const notFound = !dataFiltered.length && !!filterName;
+
+  // Llamada API
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    try {
+      const VPNResponse = await axios.post<UserProps[]>("api2/v1/vpnGet", {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (VPNResponse.status === 200) {
+        setAlert({
+          message: "Datos obtenidos con éxito",
+          severity: "success",
+        });
+        setOpenAlert(true);
+
+        setUsers(VPNResponse.data); // Actualiza el estado con los datos de la API
+        console.log("Datos obtenidos: ", VPNResponse.data);
+        //console.log("Datos de correos: ", VPNResponse.data)
+      } else {
+        setAlert({
+          message: "Algo salió mal",
+          severity: "warning",
+        });
+        setOpenAlert(true);
+      }
+    } catch (error) {
+      console.error("Error en la llamada a la API:", error);
+      setAlert({
+        message: "Ocurrió un error al procesar su solicitud.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+    }
+  };
 
   return (
     <DashboardContent>
@@ -55,8 +104,9 @@ export function VPNView() {
           variant="contained"
           color="inherit"
           startIcon={<Iconify icon="mingcute:add-line" />}
+          onClick={handleSubmit}
         >
-          Boton que no hace nada
+          Boton que actualiza los datos
         </Button>
       </Box>
 
@@ -76,26 +126,27 @@ export function VPNView() {
               <UserTableHead
                 order={table.order}
                 orderBy={table.orderBy}
-                rowCount={_users.length}
+                rowCount={users.length}
                 numSelected={table.selected.length}
                 onSort={table.onSort}
                 onSelectAllRows={(checked) =>
                   table.onSelectAllRows(
                     checked,
-                    _users.map((user) => user.id)
+                    users.map((user) => user.id)
                   )
                 }
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
+                  { id: 'NoFormato', label: 'Formato' },
+                  { id: 'NombreUsuario', label: 'Nombre' },
+                  { id: 'Correo', label: 'Correo' },
+                  { id: 'Extension', label: 'Extension' },
+                  { id: 'Movimiento', label: 'Movimiento', align: 'center' },
                   { id: '' },
                 ]}
               />
-              <TableBody>
-                {dataFiltered
+            <TableBody>
+              {dataFiltered.length > 0 ? (
+                dataFiltered
                   .slice(
                     table.page * table.rowsPerPage,
                     table.page * table.rowsPerPage + table.rowsPerPage
@@ -107,15 +158,12 @@ export function VPNView() {
                       selected={table.selected.includes(row.id)}
                       onSelectRow={() => table.onSelectRow(row.id)}
                     />
-                  ))}
+                  ))
+              ) : (
+                <TableNoData searchQuery={filterName} />
+              )}
+            </TableBody>
 
-                <TableEmptyRows
-                  height={68}
-                  emptyRows={emptyRows(table.page, table.rowsPerPage, _users.length)}
-                />
-
-                {notFound && <TableNoData searchQuery={filterName} />}
-              </TableBody>
             </Table>
           </TableContainer>
         </Scrollbar>
@@ -123,7 +171,7 @@ export function VPNView() {
         <TablePagination
           component="div"
           page={table.page}
-          count={_users.length}
+          count={users.length}
           rowsPerPage={table.rowsPerPage}
           onPageChange={table.onChangePage}
           rowsPerPageOptions={[5, 10, 25]}
