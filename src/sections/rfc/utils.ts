@@ -71,7 +71,7 @@ export function applyFilter({ inputData, comparator, filterName }: ApplyFilterPr
 
   if (filterName) {
     inputData = inputData.filter(
-      (user) => user.noticket.toLowerCase().indexOf(filterName.toLowerCase()) !== -1
+      (user) => user._id.toString().toLowerCase().indexOf(filterName.toLowerCase()) !== -1
     );
   }
 
