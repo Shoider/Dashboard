@@ -174,10 +174,8 @@ export function TelefoniaView() {
                   
                 )
                 }
-
-                
-                 <TableNoData searchQuery={filterName} />
-              </TableBody>
+             </TableBody>
+             
             </Table>
           </TableContainer>
         </Scrollbar>

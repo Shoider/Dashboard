@@ -172,9 +172,8 @@ export function RFCView() {
              ) : (
                     <TableNoData searchQuery={filterName} />
                   )}
-              
-                <TableNoData searchQuery={filterName} />
-              </TableBody>
+             </TableBody>
+             
             </Table>
           </TableContainer>
         </Scrollbar>
