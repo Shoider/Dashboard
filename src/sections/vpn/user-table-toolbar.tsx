@@ -49,9 +49,9 @@ export function UserTableToolbar({ numSelected, filterName, onFilterName }: User
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Descargar">
           <IconButton>
-            <Iconify icon="solar:trash-bin-trash-bold" />
+            <Iconify icon="solar:download-square-bold" />
           </IconButton>
         </Tooltip>
       ) : (

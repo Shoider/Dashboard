@@ -100,14 +100,14 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
           }}
         >
           <MenuItem onClick={handleClosePopover}>
-            <Iconify icon="solar:pen-bold" />
-            Edit
+            <Iconify icon="solar:download-square-bold" />
+            Descargar
           </MenuItem>
 
-          <MenuItem onClick={handleClosePopover} sx={{ color: 'error.main' }}>
+          {/*<MenuItem onClick={handleClosePopover} sx={{ color: 'error.main' }}>
             <Iconify icon="solar:trash-bin-trash-bold" />
             Delete
-          </MenuItem>
+          </MenuItem>*/}
         </MenuList>
       </Popover>
     </>
