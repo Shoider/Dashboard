@@ -145,11 +145,11 @@ export function InternetView() {
                   )
                 }
                 headLabel={[
-                  { id: '_id', label: 'No. Formato', align: 'center' },
-                  { id: 'nombreUsuario', label: 'Usuario', align: 'center' },
-                  { id: 'correoUsuario', label: 'Correo' , align: 'center'},
-                  { id: 'ipUsuario', label: 'IP', align: 'center'},
-                  { id: 'nombreJefe', label: 'Autorizó', align: 'center' },
+                  { id: '_id', label: 'No. Formato'},
+                  { id: 'nombreUsuario', label: 'Usuario'},
+                  { id: 'correoUsuario', label: 'Correo'},
+                  { id: 'ipUsuario', label: 'IP'},
+                  { id: 'nombreJefe', label: 'Autorizó'},
                   { id: '' },
                 ]}
               />

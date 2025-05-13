@@ -16,13 +16,11 @@ import { Iconify } from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export type UserProps = {
-  id: string;
-  name: string;
-  role: string;
-  status: string;
-  company: string;
-  avatarUrl: string;
-  isVerified: boolean;
+  _id: number;
+  noticket: string;
+  memo:string;
+  descbreve:string;
+  nombreJefe:string;
 };
 
 type UserTableRowProps = {
@@ -49,24 +47,20 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
 
-        <TableCell component="th" scope="row">
-          <Box
-            sx={{
-              gap: 2,
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Avatar alt={row.name} src={row.avatarUrl} />
-            {row.name}
-          </Box>
-        </TableCell>
 
-        <TableCell>{row.company}</TableCell>
+        <TableCell>{row._id}</TableCell>
 
-        <TableCell>{row.role}</TableCell>
+        <TableCell>{row.noticket}</TableCell>
 
-        <TableCell align="center">
+
+        <TableCell>{row.memo}</TableCell>
+
+        <TableCell>{row.descbreve}</TableCell>
+
+        <TableCell>{row.nombreJefe}</TableCell>
+
+
+       {/* <TableCell align="center">
           {row.isVerified ? (
             <Iconify width={22} icon="solar:check-circle-bold" sx={{ color: 'success.main' }} />
           ) : (
@@ -76,7 +70,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
 
         <TableCell>
           <Label color={(row.status === 'banned' && 'error') || 'success'}>{row.status}</Label>
-        </TableCell>
+        </TableCell>*/}
 
         <TableCell align="right">
           <IconButton onClick={handleOpenPopover}>

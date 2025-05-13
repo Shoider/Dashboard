@@ -145,11 +145,11 @@ export function VPNView() {
                   )
                 }
                 headLabel={[
-                  { id: '_id', label: 'No. Formato', align: 'center' },
-                  { id: 'nombre', label: 'Usuario', align: 'center' },
-                  { id: 'correo', label: 'Correo', align: 'center' },
-                  { id: 'movimiento', label: 'Movimiento', align: 'center'},
-                  { id: 'puestojefe', label: 'Autorizó', align: 'center' },
+                  { id: '_id', label: 'No. Formato' },
+                  { id: 'nombre', label: 'Usuario'},
+                  { id: 'correo', label: 'Correo'},
+                  { id: 'movimiento', label: 'Movimiento'},
+                  { id: 'puestojefe', label: 'Autorizó'},
                  // { id: 'status', label: 'Autorizó' },
                   { id: '' },
                 ]}
