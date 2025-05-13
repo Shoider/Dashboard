@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
@@ -9,9 +10,10 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { _users } from 'src/_mock'; //MODIFICAR ESTO, YA QUE ES LO QUE OBTIENE LOS DATOS DE LA TABLA
+//import { _users } from 'src/_mock'; //MODIFICAR ESTO, YA QUE ES LO QUE OBTIENE LOS DATOS DE LA TABLA
 import { DashboardContent } from 'src/layouts/dashboard';
 
+import Alerts from 'src/components/alerts';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 
@@ -24,21 +26,77 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 
 import type { UserProps } from '../user-table-row';
 
+
 // ----------------------------------------------------------------------
 
 export function InternetView() {
+
+  const [alert, setAlert] = useState({
+    message: "",
+    severity: "",
+  });
+  const [openAlert, setOpenAlert] = useState(false);
+
   const table = useTable();
 
   const [filterName, setFilterName] = useState('');
 
+  const [users, setUsers] = useState<UserProps[]>([]); // Estado para los datos de la API
+
   const dataFiltered: UserProps[] = applyFilter({
-    inputData: _users,
+    inputData: users,
     comparator: getComparator(table.order, table.orderBy),
     filterName,
   });
 
   const notFound = !dataFiltered.length && !!filterName;
 
+ // Llamada API
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    interface UserInternet {
+      _id: number
+      nombreUsuario: string;
+      correoUsuario: string;
+      ipUsuario: string;
+      nombreJefe: string;
+    }
+
+    try {
+      const InternetResponse = await axios.post<UserInternet[]>("api2/v1/internetGet", {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (InternetResponse.status === 200) {
+        setAlert({
+          message: "Datos obtenidos con éxito",
+          severity: "success",
+        });
+        setOpenAlert(true);
+
+        setUsers(InternetResponse.data); // Actualiza el estado con los datos de la API
+        console.log("Datos obtenidos: ", InternetResponse.data);
+        //console.log("Datos de correos: ", VPNResponse.data)
+      } else {
+        setAlert({
+          message: "Algo salió mal",
+          severity: "warning",
+        });
+        setOpenAlert(true);
+      }
+    } catch (error) {
+      console.error("Error en la llamada a la API:", error);
+      setAlert({
+        message: "Ocurrió un error al procesar su solicitud.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+    }
+  };
+ 
   return (
     <DashboardContent>
       <Box
@@ -55,8 +113,9 @@ export function InternetView() {
           variant="contained"
           color="inherit"
           startIcon={<Iconify icon="mingcute:refresh-3-line" />}
+          onClick={handleSubmit}
         >
-          Boton que no hace nada
+          Boton que actualiza los datos
         </Button>
       </Box>
 
@@ -76,46 +135,46 @@ export function InternetView() {
               <UserTableHead
                 order={table.order}
                 orderBy={table.orderBy}
-                rowCount={_users.length}
+                rowCount={users.length}
                 numSelected={table.selected.length}
                 onSort={table.onSort}
                 onSelectAllRows={(checked) =>
                   table.onSelectAllRows(
                     checked,
-                    _users.map((user) => user.id)
+                    users.map((user) => user._id.toString())
                   )
                 }
                 headLabel={[
-                  { id: 'name', label: 'No. Formato' },
-                  { id: 'company', label: 'Fecha' },
-                  { id: 'role', label: 'Usuario' },
-                  { id: 'isVerified', label: 'Correo'},
-                  { id: 'status', label: 'Categorías' },
-                  { id: 'status', label: 'Autorizó' },
+                  { id: '_id', label: 'No. Formato', align: 'center' },
+                  { id: 'nombreUsuario', label: 'Usuario', align: 'center' },
+                  { id: 'correoUsuario', label: 'Correo' , align: 'center'},
+                  { id: 'ipUsuario', label: 'IP', align: 'center'},
+                  { id: 'nombreJefe', label: 'Autorizó', align: 'center' },
                   { id: '' },
                 ]}
               />
               <TableBody>
-                {dataFiltered
+                {dataFiltered.length >0 ?(
+                  dataFiltered
                   .slice(
                     table.page * table.rowsPerPage,
                     table.page * table.rowsPerPage + table.rowsPerPage
                   )
                   .map((row) => (
                     <UserTableRow
-                      key={row.id}
+                      key={row._id}
                       row={row}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
+                      selected={table.selected.includes(row._id.toString())}
+                      onSelectRow={() => table.onSelectRow(row._id.toString())}
                     />
-                  ))}
+                  ))
 
-                <TableEmptyRows
-                  height={68}
-                  emptyRows={emptyRows(table.page, table.rowsPerPage, _users.length)}
-                />
+                ):(
+                <TableNoData searchQuery={filterName} />
 
-                {notFound && <TableNoData searchQuery={filterName} />}
+                )}
+
+                
               </TableBody>
             </Table>
           </TableContainer>
@@ -124,7 +183,7 @@ export function InternetView() {
         <TablePagination
           component="div"
           page={table.page}
-          count={_users.length}
+          count={users.length}
           rowsPerPage={table.rowsPerPage}
           onPageChange={table.onChangePage}
           rowsPerPageOptions={[5, 10, 25]}
