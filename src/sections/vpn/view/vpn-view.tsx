@@ -57,10 +57,10 @@ export function VPNView() {
 
     interface UserVPN {
       _id: number
-      nombre: string;
-      correo: string;
-      movimiento: string;
-      puestojefe: string;
+      nombreEnlace: string;
+      telefonoEnlace: string;
+      nombreAutoriza: string;
+      puestoAutoriza: string;
     }
 
     try {
