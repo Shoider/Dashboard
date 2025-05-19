@@ -146,10 +146,10 @@ export function VPNView() {
                 }
                 headLabel={[
                   { id: '_id', label: 'No. Formato' },
-                  { id: 'nombre', label: 'Usuario'},
-                  { id: 'correo', label: 'Correo'},
-                  { id: 'movimiento', label: 'Movimiento'},
-                  { id: 'puestojefe', label: 'Autorizó'},
+                  { id: 'nombreEnlace', label: 'Enlace'},
+                  { id: 'telefonoEnlace', label: 'Telefono'},
+                  { id: 'nombreAutoriza', label: 'Autorizó'},
+                  { id: 'puestoAutoriza', label: 'Puesto'},
                  // { id: 'status', label: 'Autorizó' },
                   { id: '' },
                 ]}
