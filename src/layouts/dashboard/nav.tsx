@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
+import { Divider } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,14 +13,13 @@ import Drawer, { drawerClasses } from '@mui/material/Drawer';
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
 
-import { Logo } from 'src/components/logo';
 import { Scrollbar } from 'src/components/scrollbar';
+//funcion que muestra el logo, y renderiza a pagina principal (redirecciona)
+import { LogoConagua } from 'src/components/logo/logo-conagua';
 
-import { NavUpgrade } from '../components/nav-upgrade';
-import { WorkspacesPopover } from '../components/workspaces-popover';
-
+//import { WorkspacesPopover } from '../components/workspaces-popover';
 import type { NavItem } from '../nav-config-dashboard';
-import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
+//import type { WorkspacesPopoverProps } from '../components/workspaces-popover';
 
 // ----------------------------------------------------------------------
 
@@ -29,18 +29,20 @@ export type NavContentProps = {
     topArea?: React.ReactNode;
     bottomArea?: React.ReactNode;
   };
-  workspaces: WorkspacesPopoverProps['data'];
+  
   sx?: SxProps<Theme>;
+  
 };
+
 
 export function NavDesktop({
   sx,
   data,
   slots,
-  workspaces,
   layoutQuery,
 }: NavContentProps & { layoutQuery: Breakpoint }) {
   const theme = useTheme();
+  
 
   return (
     <Box
@@ -62,7 +64,7 @@ export function NavDesktop({
         ...sx,
       }}
     >
-      <NavContent data={data} slots={slots} workspaces={workspaces} />
+      <NavContent data={data} slots={slots}  />
     </Box>
   );
 }
@@ -75,7 +77,6 @@ export function NavMobile({
   open,
   slots,
   onClose,
-  workspaces,
 }: NavContentProps & { open: boolean; onClose: () => void }) {
   const pathname = usePathname();
 
@@ -88,8 +89,9 @@ export function NavMobile({
 
   return (
     <Drawer
-      open={open}
-      onClose={onClose}
+    //variant='permanent'  
+    open={open}
+    onClose={onClose}
       sx={{
         [`& .${drawerClasses.paper}`]: {
           pt: 2.5,
@@ -100,46 +102,53 @@ export function NavMobile({
         },
       }}
     >
-      <NavContent data={data} slots={slots} workspaces={workspaces} />
+      <NavContent data={data} slots={slots} />
     </Drawer>
   );
 }
 
 // ----------------------------------------------------------------------
 
-export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
+export function NavContent({ data, slots, sx }: NavContentProps) {
   const pathname = usePathname();
+  
+  //nsole.log('NavContent data:', data);
 
   return (
     <>
-      <Logo />
-
+      <LogoConagua />
+      
       {slots?.topArea}
 
-      <WorkspacesPopover data={workspaces} sx={{ my: 2 }} />
+      {/*<WorkspacesPopover data={workspaces} sx={{ my: 2 }} />*/}
 
       <Scrollbar fillContent>
         <Box
+          //LISTA DE CONTENIDOS "USER/PRODUCT/BLOG---"
           component="nav"
           sx={[
             {
               display: 'flex',
               flex: '1 1 auto',
               flexDirection: 'column',
+              mt: 3,
             },
             ...(Array.isArray(sx) ? sx : [sx]),
           ]}
         >
+          <Divider sx={{ my: 1 }} />
           <Box
             component="ul"
             sx={{
               gap: 0.5,
               display: 'flex',
               flexDirection: 'column',
+              mt: 2
             }}
           >
             {data.map((item) => {
               const isActived = item.path === pathname;
+              //console.log('item.path', item.path);
 
               return (
                 <ListItem disableGutters disablePadding key={item.title}>
@@ -170,14 +179,14 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
                     ]}
                   >
                     <Box component="span" sx={{ width: 24, height: 24 }}>
-                      {item.icon}
+                      {item.icon}{/**ICONOS DE BARRA */}
                     </Box>
 
                     <Box component="span" sx={{ flexGrow: 1 }}>
-                      {item.title}
+                      {item.title}{/**TITULOS DE BARRA */}
                     </Box>
 
-                    {item.info && item.info}
+                    {/*item.info && item.info} {/**muestra el "+3" que esta  a ldo de blog */}
                   </ListItemButton>
                 </ListItem>
               );
@@ -186,9 +195,11 @@ export function NavContent({ data, slots, workspaces, sx }: NavContentProps) {
         </Box>
       </Scrollbar>
 
-      {slots?.bottomArea}
+      {slots?.bottomArea} {/**¿qué hace?, se puede renderizar, pero no se ocupa */}
 
-      <NavUpgrade />
+     
     </>
   );
+  
 }
+

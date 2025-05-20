@@ -7,22 +7,21 @@ import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
 import { useTheme } from '@mui/material/styles';
 
-import { _langs, _notifications } from 'src/_mock';
-
+//import { _langs, _notifications } from 'src/_mock';
 import { NavMobile, NavDesktop } from './nav';
 import { layoutClasses } from '../core/classes';
 import { _account } from '../nav-config-account';
 import { dashboardLayoutVars } from './css-vars';
 import { navData } from '../nav-config-dashboard';
 import { MainSection } from '../core/main-section';
-import { Searchbar } from '../components/searchbar';
-import { _workspaces } from '../nav-config-workspace';
+//import { Searchbar } from '../components/searchbar'; //BARRA DE BUSQUEDA
+//import { _workspaces } from '../nav-config-workspace';
 import { MenuButton } from '../components/menu-button';
 import { HeaderSection } from '../core/header-section';
-import { LayoutSection } from '../core/layout-section';
-import { AccountPopover } from '../components/account-popover';
-import { LanguagePopover } from '../components/language-popover';
-import { NotificationsPopover } from '../components/notifications-popover';
+import { LayoutSection } from '../core/layout-section'; 
+import { AccountPopover } from '../components/account-popover'; //CUENTA
+//import { LanguagePopover } from '../components/language-popover'; ///IDIOMAS
+//import { NotificationsPopover } from '../components/notifications-popover';//NOTIFICACIONES
 
 import type { MainSectionProps } from '../core/main-section';
 import type { HeaderSectionProps } from '../core/header-section';
@@ -48,6 +47,7 @@ export function DashboardLayout({
   layoutQuery = 'lg',
 }: DashboardLayoutProps) {
   const theme = useTheme();
+  
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
 
@@ -71,19 +71,21 @@ export function DashboardLayout({
             onClick={onOpen}
             sx={{ mr: 1, ml: -1, [theme.breakpoints.up(layoutQuery)]: { display: 'none' } }}
           />
-          <NavMobile data={navData} open={open} onClose={onClose} workspaces={_workspaces} />
+                    <NavMobile data={navData} open={open} onClose={onClose}  />
+
         </>
       ),
+      
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0, sm: 0.75 } }}>
           {/** @slot Searchbar */}
-          <Searchbar />
+          {/*<Searchbar />*/}
 
           {/** @slot Language popover */}
-          <LanguagePopover data={_langs} />
+          {/*<LanguagePopover data={_langs} />*/}
 
           {/** @slot Notifications popover */}
-          <NotificationsPopover data={_notifications} />
+          {/*<NotificationsPopover data={_notifications} />*/}
 
           {/** @slot Account drawer */}
           <AccountPopover data={_account} />
@@ -114,10 +116,11 @@ export function DashboardLayout({
        *************************************** */
       headerSection={renderHeader()}
       /** **************************************
-       * @Sidebar
+        * @Sidebar
        *************************************** */
       sidebarSection={
-        <NavDesktop data={navData} layoutQuery={layoutQuery} workspaces={_workspaces} />
+        <NavDesktop data={navData} layoutQuery={layoutQuery} />
+        
       }
       /** **************************************
        * @Footer
@@ -146,3 +149,4 @@ export function DashboardLayout({
     </LayoutSection>
   );
 }
+

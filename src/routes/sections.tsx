@@ -10,13 +10,18 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
+import { ProtectedRoute } from 'src/components/ProtectedRoute';
+
 // ----------------------------------------------------------------------
 
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
+export const VPNPage = lazy(() => import('src/pages/vpn'));
+export const InternetPage = lazy(() => import('src/pages/internet'));
+export const RFCPage = lazy(() => import('src/pages/rfc'));
+// eslint-disable-next-line import/no-unresolved
+export const TelefoniaPage = lazy(() => import('src/pages/telefonia'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
-export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 const renderFallback = () => (
@@ -42,6 +47,16 @@ const renderFallback = () => (
 export const routesSection: RouteObject[] = [
   {
     element: (
+      <AuthLayout>
+        <SignInPage />
+      </AuthLayout>
+    ),
+    children: [
+      { index: true, element: <SignInPage /> },
+    ],
+  },
+  {
+    element: (
       <DashboardLayout>
         <Suspense fallback={renderFallback()}>
           <Outlet />
@@ -49,19 +64,55 @@ export const routesSection: RouteObject[] = [
       </DashboardLayout>
     ),
     children: [
-      { index: true, element: <DashboardPage /> },
-      { path: 'user', element: <UserPage /> },
-      { path: 'products', element: <ProductsPage /> },
-      { path: 'blog', element: <BlogPage /> },
+      { 
+        path: 'dashboard', 
+        element: (
+          <ProtectedRoute>
+            <DashboardPage /> 
+          </ProtectedRoute>
+        ),
+        },
+      { 
+        path: 'user', 
+        element: (
+          <ProtectedRoute>
+            <UserPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'vpn', 
+        element: (
+          <ProtectedRoute>
+            <VPNPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'internet', 
+        element: (
+          <ProtectedRoute>
+            <InternetPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'rfc', 
+        element: (
+          <ProtectedRoute>
+            <RFCPage />
+          </ProtectedRoute>
+        ),
+      },
+      { 
+        path: 'telefonia', 
+        element: (
+          <ProtectedRoute>
+            <TelefoniaPage />
+          </ProtectedRoute>
+        ),
+      },
     ],
-  },
-  {
-    path: 'sign-in',
-    element: (
-      <AuthLayout>
-        <SignInPage />
-      </AuthLayout>
-    ),
   },
   {
     path: '404',

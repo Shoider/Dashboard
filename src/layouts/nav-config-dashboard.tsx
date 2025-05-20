@@ -12,40 +12,27 @@ export type NavItem = {
   info?: React.ReactNode;
 };
 
-export const navData = [
+export const navData :NavItem[] = [
   {
-    title: 'Dashboard',
-    path: '/',
-    icon: icon('ic-analytics'),
+    title: 'VPN',
+    path: '/vpn',
+    icon: icon('ic-vpn'),
   },
   {
-    title: 'User',
-    path: '/user',
-    icon: icon('ic-user'),
+    title: 'Internet',
+    path: '/internet',
+    icon: icon('ic-internet'),
   },
   {
-    title: 'Product',
-    path: '/products',
-    icon: icon('ic-cart'),
-    info: (
-      <Label color="error" variant="inverted">
-        +3
-      </Label>
-    ),
+    title: 'RFC',
+    path: '/rfc',
+    icon: icon('ic-change'),
   },
   {
-    title: 'Blog',
-    path: '/blog',
-    icon: icon('ic-blog'),
+    title: 'Telefonia',
+    path: '/telefonia',
+    icon: icon('ic-phone'),
   },
-  {
-    title: 'Sign in',
-    path: '/sign-in',
-    icon: icon('ic-lock'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic-disabled'),
-  },
+  
 ];
+//console.log(navData)

@@ -5,15 +5,15 @@ import Typography from '@mui/material/Typography';
 
 import { RouterLink } from 'src/routes/components';
 
-import { Logo } from 'src/components/logo';
+import { LogoConagua } from 'src/components/logo/logo-conagua';
 
 // ----------------------------------------------------------------------
 
 export function NotFoundView() {
   return (
     <>
-      <Logo sx={{ position: 'fixed', top: 20, left: 20 }} />
-
+      <LogoConagua sx={{ position: 'fixed', top: 20, left: 20 }} />
+      
       <Container
         sx={{
           py: 10,
@@ -32,6 +32,8 @@ export function NotFoundView() {
           Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be
           sure to check your spelling.
         </Typography>
+        😔📶🔧💻
+        
 
         <Box
           component="img"
@@ -43,7 +45,7 @@ export function NotFoundView() {
           }}
         />
 
-        <Button component={RouterLink} href="/" size="large" variant="contained" color="inherit">
+        <Button component={RouterLink} href="/dashboard" size="large" variant="contained" color="inherit">
           Go to home
         </Button>
       </Container>

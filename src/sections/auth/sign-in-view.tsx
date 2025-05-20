@@ -1,28 +1,122 @@
-import { useState, useCallback } from 'react';
+import type { ChangeEvent } from 'react';
+
+import axios from 'axios';
+import { useState } from 'react';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
+//import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
+//import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
+//import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputAdornment from '@mui/material/InputAdornment';
+//import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
 
-import { Iconify } from 'src/components/iconify';
+//import useAuth from './src/context/authContext';
+// eslint-disable-next-line import/no-unresolved
+import { useAuth } from 'src/context/AuthContext'
+//import { Iconify } from 'src/components/iconify';
+//import { resolve } from 'path';
+
+import Alerts from 'src/components/alerts';
+ 
 
 // ----------------------------------------------------------------------
+ 
 
 export function SignInView() {
+
+  const [formData, setFormData] = useState({
+    emailInput:'',
+    passwordInput:'',
+  });
+
+  const { login } = useAuth();
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.target;
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
   const router = useRouter();
+  const [showPassword] = useState(false);
+  const [alert, setAlert] = useState({
+      message: "",
+      severity: "",
+    });
+  const [openAlert, setOpenAlert] = useState(false);
 
-  const [showPassword, setShowPassword] = useState(false);
+  // Llamada API
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
+    event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
-  const handleSignIn = useCallback(() => {
-    router.push('/');
-  }, [router]);
+    console.log("Datos enviados a la API: ", formData);
+
+    try {
+      // Llamada a la API
+      interface SignInResponse {
+        token: string;
+      }
+
+      // CAMBIAR ESTAS
+      const signinResponse = await axios.post<SignInResponse>("api3/auth", formData, {
+        headers: {
+        'Content-Type': 'application/json',
+        },
+      });
+
+      if (signinResponse.status === 201) {
+        // Redirigir al usuario al dashboard
+        setAlert({
+          message: "Inicio de sesión exitoso.",
+          severity: "success",
+        });
+        setOpenAlert(true);
+        const token = signinResponse.data.token;
+        login(token, formData.emailInput);
+        console.log("Inicio exitoso, Token:", token)
+        console.log("Contenido de la respuesta:", signinResponse)
+        router.push("/dashboard");
+
+      } else if (signinResponse.status === 202) {
+        setAlert({
+          message: "Usuario y/o Contraseña Incorrectos.",
+          severity: "error",
+        });
+        setOpenAlert(true);
+        console.log("Contraseña Incorrecta")
+
+      } else if (signinResponse.status === 203) {
+        setAlert({
+          message: "Usuario y/o Contraseña Incorrectos.",
+          severity: "error",
+        });
+        setOpenAlert(true);
+        console.log("Usuario Incorrecto")
+      } else {
+        setAlert({
+          message: "Error al iniciar sesión. Por favor, intente nuevamente.",
+          severity: "error",
+        });
+        setOpenAlert(true);
+        console.log("Algo esta mal")
+      }
+
+    } catch (error) {
+      console.error("Error en la llamada a la API:", error);
+      setAlert({
+        message: "Ocurrió un error al procesar su solicitud.",
+        severity: "error",
+      });
+      setOpenAlert(true);
+    }
+  };
 
   const renderForm = (
     <Box
@@ -34,36 +128,29 @@ export function SignInView() {
     >
       <TextField
         fullWidth
-        name="email"
-        label="Email address"
-        defaultValue="hello@gmail.com"
+        id='emailInput'
+        name="emailInput"
+        label="Usuario"
+        //defaultValue="none"
+        placeholder="Ingrese su usuario"
+        onChange={handleChange}
         sx={{ mb: 3 }}
         slotProps={{
           inputLabel: { shrink: true },
         }}
       />
 
-      <Link variant="body2" color="inherit" sx={{ mb: 1.5 }}>
-        Forgot password?
-      </Link>
-
       <TextField
         fullWidth
-        name="password"
-        label="Password"
-        defaultValue="@demo1234"
+        id='passwordInput'
+        name="passwordInput"
+        label="Constraseña"
+        placeholder="Ingrese su contraseña"
+        //defaultValue="@demo1234"
         type={showPassword ? 'text' : 'password'}
+        onChange={handleChange}
         slotProps={{
           inputLabel: { shrink: true },
-          input: {
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'solar:eye-bold' : 'solar:eye-closed-bold'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
         }}
         sx={{ mb: 3 }}
       />
@@ -74,7 +161,7 @@ export function SignInView() {
         type="submit"
         color="inherit"
         variant="contained"
-        onClick={handleSignIn}
+        onClick={handleSubmit}
       >
         Sign in
       </Button>
@@ -92,8 +179,11 @@ export function SignInView() {
           mb: 5,
         }}
       >
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
+
+        
         <Typography variant="h5">Sign in</Typography>
-        <Typography
+        {/*<Typography
           variant="body2"
           sx={{
             color: 'text.secondary',
@@ -103,17 +193,17 @@ export function SignInView() {
           <Link variant="subtitle2" sx={{ ml: 0.5 }}>
             Get started
           </Link>
-        </Typography>
+        </Typography>*/}
       </Box>
       {renderForm}
-      <Divider sx={{ my: 3, '&::before, &::after': { borderTopStyle: 'dashed' } }}>
+      {/*<Divider sx={{ my: 3, '&::before, &::after': { borderTopStyle: 'dashed' } }}>
         <Typography
           variant="overline"
           sx={{ color: 'text.secondary', fontWeight: 'fontWeightMedium' }}
         >
           OR
         </Typography>
-      </Divider>
+      </Divider>*/}
       <Box
         sx={{
           gap: 1,
@@ -121,7 +211,8 @@ export function SignInView() {
           justifyContent: 'center',
         }}
       >
-        <IconButton color="inherit">
+        
+        {/*<IconButton color="inherit">
           <Iconify width={22} icon="socials:google" />
         </IconButton>
         <IconButton color="inherit">
@@ -129,8 +220,9 @@ export function SignInView() {
         </IconButton>
         <IconButton color="inherit">
           <Iconify width={22} icon="socials:twitter" />
-        </IconButton>
+        </IconButton>*/}
       </Box>
     </>
+    
   );
 }
