@@ -33,7 +33,7 @@ USER front
 
 # Healthcheck mejorado
 HEALTHCHECK --interval=300s --timeout=30s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:3039 || exit 1
+    CMD curl -f http://dashboard:3039 || exit 1
 
 # Usar serve para servir la aplicación estática
 CMD ["npx", "serve", "-s", "dist", "-l", "tcp://0.0.0.0:3039"]

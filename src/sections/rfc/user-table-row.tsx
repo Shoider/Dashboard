@@ -59,6 +59,12 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         },
       );
 
+      setAlert({
+        message: `Generando PDF con id: ${row._id}`,
+        severity: "warning",
+      });
+      setOpenAlert(true);
+
       if (pdfResponse.status === 200) {
         const blob = new Blob([pdfResponse.data as BlobPart], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
@@ -66,7 +72,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         // Crear un enlace temporal y simular el clic para descargar
         const link = document.createElement("a");
         link.href = url;
-        link.download = `VPN_${row._id}.pdf`;
+        link.download = `RFC_${row._id}.pdf`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

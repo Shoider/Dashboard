@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -40,9 +40,8 @@ export function TelefoniaView() {
 
   const [filterName, setFilterName] = useState('');
 
-    const [users, setUsers] = useState<UserProps[]>([]); // Estado para los datos de la API
+  const [users, setUsers] = useState<UserProps[]>([]); // Estado para los datos de la API
   
-
   const dataFiltered: UserProps[] = applyFilter({
     inputData: users,
     comparator: getComparator(table.order, table.orderBy),
@@ -51,7 +50,11 @@ export function TelefoniaView() {
 
   const notFound = !dataFiltered.length && !!filterName;
 
-
+  // Llama a la API al montar el componente
+  useEffect(() => {
+    handleSubmit({ preventDefault: () => {} }); 
+  }, []);
+  
   // Llamada API
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -190,6 +193,8 @@ export function TelefoniaView() {
           onRowsPerPageChange={table.onChangeRowsPerPage}
         />
       </Card>
+      {/* Mostrar alertas */}
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
     </DashboardContent>
   );
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -50,6 +50,11 @@ export function InternetView() {
   });
 
   const notFound = !dataFiltered.length && !!filterName;
+
+  // Llama a la API al montar el componente
+  useEffect(() => {
+    handleSubmit({ preventDefault: () => {} }); 
+  }, []);
 
  // Llamada API
   const handleSubmit = async (event: { preventDefault: () => void }) => {
@@ -190,6 +195,8 @@ export function InternetView() {
           onRowsPerPageChange={table.onChangeRowsPerPage}
         />
       </Card>
+      {/* Mostrar alertas */}
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
     </DashboardContent>
   );
 }
