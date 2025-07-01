@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState, useCallback } from 'react';
 
 import Popover from '@mui/material/Popover';
@@ -153,11 +154,6 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
             <Iconify icon="solar:download-square-bold" />
             Descargar
           </MenuItem>
-
-          {/*<MenuItem onClick={handleClosePopover} sx={{ color: 'error.main' }}>
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
-          </MenuItem>*/}
         </MenuList>
       </Popover>
 

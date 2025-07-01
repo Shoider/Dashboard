@@ -1,7 +1,6 @@
+import axios from 'axios';
 import { useState, useCallback } from 'react';
 
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,7 +9,7 @@ import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 
-import { Label } from 'src/components/label';
+import Alerts from 'src/components/alerts';
 import { Iconify } from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
@@ -32,6 +31,12 @@ type UserTableRowProps = {
 export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) {
   const [openPopover, setOpenPopover] = useState<HTMLButtonElement | null>(null);
 
+    const [alert, setAlert] = useState({
+      message: "",
+      severity: "",
+    });
+  const [openAlert, setOpenAlert] = useState(false);
+
   const handleOpenPopover = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopover(event.currentTarget);
   }, []);
@@ -39,6 +44,53 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
   const handleClosePopover = useCallback(() => {
     setOpenPopover(null);
   }, []);
+
+  // Nueva función para manejar la descarga
+  const handleDownload = useCallback(async () => {
+    handleClosePopover(); // Cierra el popover al hacer clic en descargar
+    console.log("Clic en boton descargar")
+    try {
+      // Llama a la API para obtener el PDF
+      const pdfResponse = await axios.post(
+        "/api/v3/vpn",
+        { id: row._id },
+        {
+          responseType: "blob",
+        },
+      );
+
+      if (pdfResponse.status === 200) {
+        const blob = new Blob([pdfResponse.data as BlobPart], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        // Crear un enlace temporal y simular el clic para descargar
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `VPN_${row._id}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        setAlert({
+          message: "PDF descargado correctamente",
+          severity: "success",
+        });
+        setOpenAlert(true);
+      } else {
+        console.error("Ocurrió un error al generar el PDF");
+        console.error(pdfResponse.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setAlert({
+        message: "Ocurrió un error al generar el PDF",
+        severity: "error",
+      });
+      setOpenAlert(true);
+    }
+  }, [row._id, handleClosePopover]); // Asegúrate de incluir las dependencias necesarias
+
 
   return (
     <>
@@ -100,17 +152,15 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
             },
           }}
         >
-          <MenuItem onClick={handleClosePopover}>
+          <MenuItem onClick={handleDownload}>
             <Iconify icon="solar:download-square-bold" />
             Descargar
           </MenuItem>
-
-          {/*<MenuItem onClick={handleClosePopover} sx={{ color: 'error.main' }}>
-            <Iconify icon="solar:trash-bin-trash-bold" />
-            Delete
-          </MenuItem>*/}
         </MenuList>
       </Popover>
+
+      {/* Mostrar alertas */}
+      <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
     </>
   );
 }
