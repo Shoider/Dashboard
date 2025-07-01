@@ -52,7 +52,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
     try {
       // Llama a la API para obtener el PDF
       const pdfResponse = await axios.post(
-        "/api/v3/vpn",
+        "/api/v3/telefonia",
         { id: row._id },
         {
           responseType: "blob",
