@@ -151,10 +151,10 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
             },
           }}
         >
-          <MenuItem onClick={handleClosePopover}>
+          {/* <MenuItem onClick={handleClosePopover}>
             <Iconify icon="solar:download-square-bold" />
             Descargar OLD
-          </MenuItem>
+          </MenuItem> */}
 
           {/* Aquí se asocia la función handleDownload al onClick */}
           <MenuItem onClick={handleDownload}>
