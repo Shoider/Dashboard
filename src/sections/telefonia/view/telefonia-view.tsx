@@ -20,9 +20,8 @@ import { Scrollbar } from 'src/components/scrollbar';
 import { TableNoData } from '../table-no-data';
 import { UserTableRow } from '../user-table-row';
 import { UserTableHead } from '../user-table-head';
-import { TableEmptyRows } from '../table-empty-rows';
+import { applyFilter, getComparator } from '../utils';
 import { UserTableToolbar } from '../user-table-toolbar';
-import { emptyRows, applyFilter, getComparator } from '../utils';
 
 import type { UserProps } from '../user-table-row';
 
@@ -48,7 +47,7 @@ export function TelefoniaView() {
     filterName,
   });
 
-  const notFound = !dataFiltered.length && !!filterName;
+  // const notFound = !dataFiltered.length && !!filterName;
 
   // Llama a la API al montar el componente
   useEffect(() => {

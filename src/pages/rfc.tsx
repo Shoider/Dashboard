@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { RFCView } from 'src/sections/rfc/view';
 // ----------------------------------------------------------------------

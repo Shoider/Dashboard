@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { InternetView } from 'src/sections/internet/view';
 // ----------------------------------------------------------------------

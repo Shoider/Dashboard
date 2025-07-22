@@ -15,7 +15,6 @@ import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { _myAccount } from 'src/_mock';
-// eslint-disable-next-line import/no-unresolved
 import { useAuth } from 'src/context/AuthContext'
 
 // ----------------------------------------------------------------------

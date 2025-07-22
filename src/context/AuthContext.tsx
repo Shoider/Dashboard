@@ -70,6 +70,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Verificar el token al cargar la aplicación
   useEffect(() => {
     verifyToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

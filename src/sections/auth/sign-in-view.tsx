@@ -15,7 +15,6 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'src/routes/hooks';
 
 //import useAuth from './src/context/authContext';
-// eslint-disable-next-line import/no-unresolved
 import { useAuth } from 'src/context/AuthContext'
 //import { Iconify } from 'src/components/iconify';
 //import { resolve } from 'path';

@@ -1,4 +1,3 @@
-import { CONFIG } from 'src/config-global';
 
 import { VPNView } from 'src/sections/vpn/view';
 // ----------------------------------------------------------------------
