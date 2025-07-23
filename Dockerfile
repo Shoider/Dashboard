@@ -1,4 +1,5 @@
-FROM node:20-alpine3.18
+FROM node:24.4-alpine3.22
+
 
 # Instalación de dependencias del sistema
 RUN apk add --no-cache curl
