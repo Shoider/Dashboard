@@ -1,8 +1,20 @@
+# Dependencias y entornos virtuales
 node_modules
-.git
-.env
-.DS_Store
-Dockerfile
 venv
 *.npm
-root/.npm 
+root/.npm
+
+# Archivos y carpetas de control de versiones
+.git
+
+# Archivos de entorno y configuración local
+.env
+.DS_Store
+
+# Archivos de Docker y build locales
+Dockerfile
+
+# Archivos de documentación
+README.md
+README
+*.md
