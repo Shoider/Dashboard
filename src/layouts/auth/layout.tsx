@@ -58,8 +58,8 @@ export function AuthLayout({
       rightArea: (
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
           {/** @slot Help link */}
-          <Link href="http://172.29.206.227" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }}>
-            Pagina Formulario
+          <Link href="http://formatosgtic.conagua.gob.mx" component={RouterLink} color="inherit" sx={{ typography: 'subtitle2' }}>
+            Página Formatos GTIC
           </Link>
         </Box>
       ),
