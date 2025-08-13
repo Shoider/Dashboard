@@ -17,6 +17,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem("authToken"));
   //const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // const verificar =async () =>{
+
+  // }
   // Función para verificar la validez del token
   const verifyToken = async () => {
     const token = localStorage.getItem("authToken");
