@@ -80,7 +80,7 @@ export function SignInView() {
         const token = signinResponse.data.token;
         login(token, formData.emailInput);
         console.log("Inicio exitoso, Token:", token)
-        console.log("Contenido de la respuesta:", signinResponse)
+        console.log("Contenido de la respuesta:", signinResponse)        
         router.push("/dashboard");
 
       } else if (signinResponse.status === 202) {
