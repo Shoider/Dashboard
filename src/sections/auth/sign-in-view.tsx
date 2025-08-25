@@ -61,6 +61,7 @@ export function SignInView() {
       // Llamada a la API
       interface SignInResponse {
         token: string;
+        tipoUsuario: string;
       }
 
       // CAMBIAR ESTAS
@@ -78,8 +79,10 @@ export function SignInView() {
         });
         setOpenAlert(true);
         const token = signinResponse.data.token;
-        login(token, formData.emailInput);
+        const tipoUsuario = signinResponse.data.tipoUsuario;
+        login(token, formData.emailInput, tipoUsuario);
         console.log("Inicio exitoso, Token:", token)
+        console.log("Privilegio encontrado", tipoUsuario)
         console.log("Contenido de la respuesta:", signinResponse)        
         router.push("/dashboard");
 

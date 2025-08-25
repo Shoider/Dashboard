@@ -11,6 +11,8 @@ import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
 import { ProtectedRoute } from 'src/components/ProtectedRoute';
+import { RoleProtectedRoute } from 'src/components/RoleProtectedRoute';
+
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +25,7 @@ export const RFCPage = lazy(() => import('src/pages/rfc'));
 export const TelefoniaPage = lazy(() => import('src/pages/telefonia'));
 export const SignInPage = lazy(() => import('src/pages/sign-in'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
+export const PageNotAccess = lazy(() => import('src/pages/not-acces'));
 
 const renderFallback = () => (
   <Box
@@ -83,33 +86,41 @@ export const routesSection: RouteObject[] = [
       { 
         path: 'vpn', 
         element: (
-          <ProtectedRoute>
+          <RoleProtectedRoute allowedRoles={['vpn', 'administrador']}>
+          {/* <ProtectedRoute> */}
             <VPNPage />
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
+          </RoleProtectedRoute>
         ),
       },
       { 
         path: 'internet', 
         element: (
-          <ProtectedRoute>
+          <RoleProtectedRoute allowedRoles={['internet', 'administrador']}>
+          {/* <ProtectedRoute> */}
             <InternetPage />
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
+          </RoleProtectedRoute>
         ),
       },
       { 
         path: 'rfc', 
         element: (
-          <ProtectedRoute>
+          <RoleProtectedRoute allowedRoles={['rfc', 'administrador']}>
+          {/* <ProtectedRoute> */}
             <RFCPage />
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
+          </RoleProtectedRoute>
         ),
       },
       { 
         path: 'telefonia', 
         element: (
-          <ProtectedRoute>
+          <RoleProtectedRoute allowedRoles={['telefonia', 'administrador']}>
+          {/* <ProtectedRoute> */}
             <TelefoniaPage />
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
+          </RoleProtectedRoute>
         ),
       },
     ],
@@ -117,6 +128,10 @@ export const routesSection: RouteObject[] = [
   {
     path: '404',
     element: <Page404 />,
+  },
+  {
+    path: 'denegado',
+    element: <PageNotAccess />,
   },
   { path: '*', element: <Page404 /> },
 ];

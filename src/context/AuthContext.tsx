@@ -5,9 +5,15 @@ import { useState, useEffect, useContext, createContext } from 'react';
 
 //import { LogoConagua } from 'src/components/logo/logo-conagua';
 
+type UserType = {
+  email: string;
+  tipoUsuario: string;
+};
+
 type AuthContextType = {
   isAuthenticated: boolean;
-  login: (token: string, user: string) => void;
+  user: UserType | null;
+  login: (token: string, user: string, tipoUsuario: string) => void;
   logout: () => void;
 };
 
@@ -15,6 +21,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(() => !!localStorage.getItem("authToken"));
+  const [user, setUser] = useState<UserType | null>(() => {
+    const email = localStorage.getItem("user");
+    const tipoUsuario = localStorage.getItem("tipoUsuario");
+    return email && tipoUsuario ? { email, tipoUsuario } : null;
+  });
   //const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // const verificar =async () =>{
@@ -58,15 +69,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = (token: string, user: string) => {
+  const login = (token: string, email: string, tipoUsuario: string) => {
     localStorage.setItem("authToken", token);
-    localStorage.setItem("user", user)
+    localStorage.setItem("user", email);
+    localStorage.setItem("tipoUsuario", tipoUsuario);
+    setUser({ email, tipoUsuario });
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("user");
+    localStorage.removeItem("tipoUsuario");
+    setUser(null);
     setIsAuthenticated(false);
   };
 
@@ -76,8 +91,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+ return (
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
