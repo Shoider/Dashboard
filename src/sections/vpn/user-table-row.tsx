@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 
 import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
+//import Checkbox from '@mui/material/Checkbox';
 import MenuList from '@mui/material/MenuList';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
@@ -48,7 +48,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
   // Nueva función para manejar la descarga
   const handleDownload = useCallback(async () => {
     handleClosePopover(); // Cierra el popover al hacer clic en descargar
-    console.log("Clic en boton descargar")
+    //console.log("Clic en boton descargar")
     try {
       // Llama a la API para obtener el PDF
       const pdfResponse = await axios.post(
@@ -101,9 +101,9 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
-        </TableCell>
+        </TableCell> */}
 
         <TableCell>{row._id}</TableCell>
 

@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react';
 
 import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
+//import Checkbox from '@mui/material/Checkbox';
 import MenuList from '@mui/material/MenuList';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
@@ -101,9 +101,9 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
-        </TableCell>
+        </TableCell> */}
       
 
         <TableCell>{row._id}</TableCell>
@@ -160,7 +160,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         >
           <MenuItem onClick={handleDownload}>
             <Iconify icon="solar:download-square-bold" />
-            Descargar
+            Descargar PDF
           </MenuItem>
         </MenuList>
       </Popover>
