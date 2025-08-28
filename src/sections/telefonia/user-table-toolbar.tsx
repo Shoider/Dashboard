@@ -27,7 +27,7 @@ export function UserTableToolbar({ numSelected, filterName, onFilterName }: User
       const [openAlert, setOpenAlert] = useState(false);
   // Nueva función para manejar la descarga de csv
   const handleDownload2 = (async () => {
-    console.log("Clic en boton descargar CSV");
+    //console.log("Clic en boton descargar CSV");
     try {
       const response = await axios.post(
         "/api2/v1/telFiltrado",
@@ -40,7 +40,7 @@ export function UserTableToolbar({ numSelected, filterName, onFilterName }: User
       setOpenAlert(true);
 
       if (response.status === 200) {
-        console.log("Datos obtenidos del filtro en mongodb: ", response.data);
+        //console.log("Datos obtenidos del filtro en mongodb: ", response.data);
         const items = Array.isArray(response.data) ? response.data : [response.data];
         if (items.length === 0) {
           setAlert({

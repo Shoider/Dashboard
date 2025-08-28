@@ -81,7 +81,7 @@ export function RFCView() {
         setOpenAlert(true);
 
         setUsers(RFCResponse.data); // Actualiza el estado con los datos de la API
-        console.log("Datos obtenidos: ", RFCResponse.data);
+        //console.log("Datos obtenidos: ", RFCResponse.data);
         //console.log("Datos de correos: ", VPNResponse.data)
       } else {
         setAlert({

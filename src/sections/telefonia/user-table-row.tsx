@@ -48,7 +48,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
   // Nueva función para manejar la descarga
   const handleDownload = useCallback(async () => {
     handleClosePopover(); // Cierra el popover al hacer clic en descargar
-    console.log("Clic en boton descargar")
+    //console.log("Clic en boton descargar")
     try {
       // Llama a la API para obtener el PDF
       const pdfResponse = await axios.post(

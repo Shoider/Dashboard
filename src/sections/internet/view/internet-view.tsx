@@ -82,7 +82,7 @@ export function InternetView() {
         setOpenAlert(true);
 
         setUsers(InternetResponse.data); // Actualiza el estado con los datos de la API
-        console.log("Datos obtenidos: ", InternetResponse.data);
+        //console.log("Datos obtenidos: ", InternetResponse.data);
         //console.log("Datos de correos: ", VPNResponse.data)
       } else {
         setAlert({
