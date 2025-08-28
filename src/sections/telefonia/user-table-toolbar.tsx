@@ -71,8 +71,10 @@ export function UserTableToolbar({ numSelected, filterName, onFilterName }: User
             }).join(",")
           ),
         ];
-        const csvString = csvRows.join("\r\n");
-        const blob = new Blob([csvString], { type: "text/csv" });
+        // const csvString = csvRows.join("\r\n");
+        // const blob = new Blob([csvString], { type: "text/csv" });
+        const csvStringWithBom = '\uFEFF' + csvRows.join("\r\n");
+        const blob = new Blob([csvStringWithBom], { type: "text/csv" });
         const url = URL.createObjectURL(blob);
 
         const link = document.createElement("a");
