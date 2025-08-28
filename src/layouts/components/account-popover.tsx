@@ -25,6 +25,7 @@ export type AccountPopoverProps = IconButtonProps & {
     href: string;
     icon?: React.ReactNode;
     info?: React.ReactNode;
+    key:string;
     //disabled?: boolean; // Agrega esta propiedad para habilitar/deshabilitar el elemento
     
     //onClick?: () => void;
@@ -32,6 +33,15 @@ export type AccountPopoverProps = IconButtonProps & {
 };
 
 export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps) {
+
+  const tipoUsuario = localStorage.getItem("tipoUsuario") || "";
+
+  // Filtra las opciones según el tipo de usuario
+  const filteredData =
+    tipoUsuario === "administrador"
+      ? data
+      : data.filter((option) => option.key === tipoUsuario || option.key === "inicio");
+      
   const router = useRouter();
   const { logout } = useAuth();
   const pathname = usePathname();
@@ -67,9 +77,9 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
           p: '2px',
           width: 40,
           height: 40,
-          background: (theme) =>
-            `conic-gradient(${theme.vars.palette.primary.light}, ${theme.vars.palette.warning.light}, ${theme.vars.palette.primary.light})`,
-          ...sx,
+          // background: (theme) =>
+          //   `conic-gradient(${theme.vars.palette.primary.light}, ${theme.vars.palette.warning.light}, ${theme.vars.palette.primary.light})`,
+          // ...sx,
         }}
         {...other}
       >
@@ -96,7 +106,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
           </Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {localStorage.getItem("user")} @conagua.com
+            Acceso: {localStorage.getItem("tipoUsuario")} 
           </Typography>
         </Box>
 
@@ -123,12 +133,12 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
             },
           }}
         >
-          {data.map((option) => (
+          {filteredData.map((option) => (
             <MenuItem
               key={option.label}
               selected={option.href === pathname}
               onClick={() => handleClickItem(option.href)}
-            >
+            >              
               {option.icon}
               {option.label}
             </MenuItem>

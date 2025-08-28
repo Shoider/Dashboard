@@ -24,7 +24,7 @@ import type { NavItem } from '../nav-config-dashboard';
 // ----------------------------------------------------------------------
 
 export type NavContentProps = {
-  data: NavItem[];
+  data: NavItem[];  
   slots?: {
     topArea?: React.ReactNode;
     bottomArea?: React.ReactNode;
@@ -33,8 +33,6 @@ export type NavContentProps = {
   sx?: SxProps<Theme>;
   
 };
-
-
 export function NavDesktop({
   sx,
   data,
@@ -111,6 +109,14 @@ export function NavMobile({
 
 export function NavContent({ data, slots, sx }: NavContentProps) {
   const pathname = usePathname();
+
+  const tipoUsuario = localStorage.getItem("tipoUsuario") || "";
+
+  // Filtra las opciones según el tipo de usuario
+  const filteredData =
+    tipoUsuario === "administrador"
+      ? data
+      : data.filter((option) => option.key === tipoUsuario);
   
   //nsole.log('NavContent data:', data);
 
@@ -146,7 +152,7 @@ export function NavContent({ data, slots, sx }: NavContentProps) {
               mt: 2
             }}
           >
-            {data.map((item) => {
+            {filteredData.map((item) => {
               const isActived = item.path === pathname;
               //console.log('item.path', item.path);
 
