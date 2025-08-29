@@ -2,6 +2,7 @@ import type { Theme, SxProps, CSSObject } from '@mui/material/styles';
 
 import { mergeClasses } from 'minimal-shared/utils';
 
+import { Box} from "@mui/material";
 import { styled } from '@mui/material/styles';
 import GlobalStyles from '@mui/material/GlobalStyles';
 
@@ -37,6 +38,18 @@ export function LayoutSection({
     <>
       {inputGlobalStyles}
 
+    <Box
+              sx={{
+                position:"relative",
+                width: "100%",
+                height:"100%",
+                backgroundImage: "url('/fondo.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+               //backgroundRepeat: "no-repeat"
+                //display: { xs: "none", md: "block" }, // Mostrar solo en pantallas pequeñas
+              }}
+            >
       <LayoutRoot
         id="root__layout"
         className={mergeClasses([layoutClasses.root, className])}
@@ -60,6 +73,7 @@ export function LayoutSection({
           </>
         )}
       </LayoutRoot>
+      </Box>
     </>
   );
 }

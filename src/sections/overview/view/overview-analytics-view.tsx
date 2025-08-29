@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
+import { Box} from "@mui/material";
 import Grid from '@mui/material/Grid';
 import WifiIcon from '@mui/icons-material/Wifi';
 import Typography from '@mui/material/Typography';
@@ -113,6 +114,18 @@ export function OverviewAnalyticsView() {
   }, []);
   return (
     <DashboardContent maxWidth="xl">
+      <Box
+              sx={{
+                position:"relative",
+                width: "100%",
+                height:"100%",
+                backgroundImage: "url('/fondo.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+               //backgroundRepeat: "no-repeat"
+                //display: { xs: "none", md: "block" }, // Mostrar solo en pantallas pequeñas
+              }}
+            >
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Hola, Bienvenido 
       </Typography>
@@ -219,6 +232,7 @@ export function OverviewAnalyticsView() {
         </Grid>
 
       </Grid>
+      </Box>
     </DashboardContent>
   );
 }
