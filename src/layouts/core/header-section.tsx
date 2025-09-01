@@ -88,7 +88,7 @@ const HeaderRoot = styled(AppBar, {
   const pauseZindex = { top: -1, bottom: -2 };
 
   const pauseStyles: CSSObject = {
-    opacity: 0,
+    opacity: 0.8,
     content: '""',
     visibility: 'hidden',
     position: 'absolute',

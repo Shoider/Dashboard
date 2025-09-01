@@ -114,7 +114,7 @@ export function OverviewAnalyticsView() {
   }, []);
   return (
     <DashboardContent maxWidth="xl">
-      <Box
+      {/* <Box
               sx={{
                 position:"relative",
                 width: "100%",
@@ -125,7 +125,7 @@ export function OverviewAnalyticsView() {
                //backgroundRepeat: "no-repeat"
                 //display: { xs: "none", md: "block" }, // Mostrar solo en pantallas pequeñas
               }}
-            >
+            > */}
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Hola, Bienvenido 
       </Typography>
@@ -232,7 +232,7 @@ export function OverviewAnalyticsView() {
         </Grid>
 
       </Grid>
-      </Box>
+      {/* </Box> */}
     </DashboardContent>
   );
 }
