@@ -111,7 +111,7 @@ export function VPNView() {
         }}
       >
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          Registros VPN
+          Registros de acceso remoto a tráves de una red virtual (VPN)
         </Typography>
         <Button
           variant="contained"
@@ -119,7 +119,7 @@ export function VPNView() {
           startIcon={<Iconify icon="mingcute:refresh-3-line" />}
           onClick={handleSubmit}
         >
-          Boton que actualiza los datos
+          Botón que actualiza los datos
         </Button>
       </Box>
 

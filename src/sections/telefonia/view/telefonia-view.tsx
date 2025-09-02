@@ -110,7 +110,7 @@ export function TelefoniaView() {
         }}
       >
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          Registros de Telefonia
+          Registros de servicios de telefonía
         </Typography>
         <Button
           variant="contained"
@@ -118,7 +118,7 @@ export function TelefoniaView() {
           startIcon={<Iconify icon="mingcute:refresh-3-line" />}
           onClick={handleSubmit}
         >
-          Boton que actualiza los datos
+          Botón que actualiza los datos
         </Button>
       </Box>
 

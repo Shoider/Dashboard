@@ -111,7 +111,7 @@ export function InternetView() {
         }}
       >
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          Registros de Ampliacón de Internet
+          Registros de ampliación de internet
         </Typography>
         <Button
           variant="contained"
@@ -119,7 +119,7 @@ export function InternetView() {
           startIcon={<Iconify icon="mingcute:refresh-3-line" />}
           onClick={handleSubmit}
         >
-          Boton que actualiza los datos
+          Botón que actualiza los datos
         </Button>
       </Box>
 

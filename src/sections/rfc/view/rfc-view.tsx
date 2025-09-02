@@ -110,7 +110,7 @@ export function RFCView() {
         }}
       >
         <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          Registros RFC
+          Registros SdC de Cortafuegos
         </Typography>
         <Button
           variant="contained"
@@ -118,7 +118,7 @@ export function RFCView() {
           startIcon={<Iconify icon="mingcute:refresh-3-line" />}
           onClick={handleSubmit}
         >
-          Boton que actualiza los datos
+          Botón que actualiza los datos
         </Button>
       </Box>
 

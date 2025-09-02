@@ -48,8 +48,15 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
   // Nueva función para manejar la descarga
   const handleDownload = useCallback(async () => {
     handleClosePopover(); // Cierra el popover al hacer clic en descargar
-    console.log("Clic en boton descargar")
+    //console.log("Clic en boton descargar")
     try {
+
+      setAlert({
+        message: "Generando PDF",
+        severity: "success",
+      });
+      setOpenAlert(true);
+
       // Llama a la API para obtener el PDF
       const pdfResponse = await axios.post(
         "/api/v3/internet",
@@ -57,14 +64,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         {
           responseType: "blob",
         },
-      );
-
-      setAlert({
-        message: `Generando PDF con id: ${row._id}`,
-        severity: "warning",
-      });
-      setOpenAlert(true);
-
+      );   
       if (pdfResponse.status === 200) {
         const blob = new Blob([pdfResponse.data as BlobPart], { type: "application/pdf" });
         const url = URL.createObjectURL(blob);
