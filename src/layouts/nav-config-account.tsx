@@ -26,7 +26,7 @@ export const _account: AccountPopoverProps['data'] = [
     key:"internet"
   },
   {
-    label: 'RFC',
+    label: 'SdC',
     href: '/rfc',
     icon: <Iconify width={22} icon="solar:refresh-bold-dutone" />,
     key:"rfc"

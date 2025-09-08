@@ -28,7 +28,7 @@ export const navData :NavItem[] = [
     key:"internet"
   },
   {
-    title: 'RFC',
+    title: 'SdC',
     path: '/rfc',
     icon: icon('ic-change'),
     key:"rfc"

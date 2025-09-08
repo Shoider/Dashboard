@@ -159,7 +159,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
               router.push('/');
             }}
           >
-            Logout
+            Cerrar sesión
           </Button>
         </Box>
       </Popover>

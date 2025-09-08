@@ -122,6 +122,8 @@ export function SignInView() {
 
   const renderForm = (
     <Box
+      component="form"
+      onSubmit={handleSubmit}
       sx={{
         display: 'flex',
         alignItems: 'flex-end',
@@ -163,9 +165,9 @@ export function SignInView() {
         type="submit"
         color="inherit"
         variant="contained"
-        onClick={handleSubmit}
+        //onClick={handleSubmit}
       >
-        Sign in
+        Iniciar sesión
       </Button>
     </Box>
   );
@@ -184,7 +186,7 @@ export function SignInView() {
       <Alerts open={openAlert} setOpen={setOpenAlert} alert={alert} pos="up" />
 
         
-        <Typography variant="h5">Sign in</Typography>
+        <Typography variant="h5">Iniciar sesión</Typography>
         {/*<Typography
           variant="body2"
           sx={{
