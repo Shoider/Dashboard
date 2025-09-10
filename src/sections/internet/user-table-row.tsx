@@ -97,6 +97,40 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
     }
   }, [row._id, handleClosePopover]); // Asegúrate de incluir las dependencias necesarias
 
+    const handleDelete = useCallback(async () => {
+    handleClosePopover(); // Cierra el popover al hacer clic en descargar
+    //console.log("Clic en boton descargar PDF")
+    try {
+      // Llama a la API para borrar el registro
+      const deleteResponse = await axios.post(
+        "/api2/v1/borrarInter",
+        { id: row._id },
+        {
+          responseType: "blob",
+        },
+      );      
+
+      if (deleteResponse.status === 200) {       
+
+        setAlert({
+          message: "Registro borrado correctamente",
+          severity: "success",
+        });
+        setOpenAlert(true);
+      } else {
+        console.error("Ocurrió un error al borrar el registro");
+        console.error(deleteResponse.status);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setAlert({
+        message: "Ocurrió un error otro al borrar el registro",
+        severity: "error",
+      });
+      setOpenAlert(true);
+    }
+  }, [row._id, handleClosePopover]); // Asegúrate de incluir las dependencias necesarias
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -149,7 +183,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
             display: 'flex',
             flexDirection: 'column',
             [`& .${menuItemClasses.root}`]: {
-              px: 1,
+              px: 0,
               gap: 2,
               borderRadius: 0.75,
               [`&.${menuItemClasses.selected}`]: { bgcolor: 'action.selected' },
@@ -158,8 +192,14 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         >
           <MenuItem onClick={handleDownload}>
             <Iconify icon="solar:download-square-bold" />
-            Descargar
+            Descargar PDF
           </MenuItem>
+
+          <MenuItem onClick={handleDelete}>
+            <Iconify icon="solar:trash-bin-trash-bold" />
+              Elimar registro
+          </MenuItem> 
+          
         </MenuList>
       </Popover>
 
