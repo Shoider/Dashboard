@@ -200,7 +200,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
           {/* Aquí se asocia la función handleDownload al onClick */}
           <MenuItem onClick={handleDownload}>
             <Iconify icon="solar:download-square-bold" />
-            Descargar
+            Descargar PDF
           </MenuItem>
 
           <MenuItem onClick={handleDelete}>
