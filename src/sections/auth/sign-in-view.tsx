@@ -55,7 +55,7 @@ export function SignInView() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault(); // Evita el comportamiento predeterminado del formulario
 
-    console.log("Datos enviados a la API: ", formData);
+    //console.log("Datos enviados a la API: ", formData);
 
     try {
       // Llamada a la API
@@ -81,9 +81,9 @@ export function SignInView() {
         const token = signinResponse.data.token;
         const tipoUsuario = signinResponse.data.tipoUsuario;
         login(token, formData.emailInput, tipoUsuario);
-        console.log("Inicio exitoso, Token:", token)
-        console.log("Privilegio encontrado", tipoUsuario)
-        console.log("Contenido de la respuesta:", signinResponse)        
+        //console.log("Inicio exitoso, Token:", token)
+        //console.log("Privilegio encontrado", tipoUsuario)
+        //console.log("Contenido de la respuesta:", signinResponse)        
         router.push("/dashboard");
 
       } else if (signinResponse.status === 202) {
@@ -92,7 +92,7 @@ export function SignInView() {
           severity: "error",
         });
         setOpenAlert(true);
-        console.log("Contraseña Incorrecta")
+        //console.log("Contraseña Incorrecta")
 
       } else if (signinResponse.status === 203) {
         setAlert({
@@ -100,14 +100,14 @@ export function SignInView() {
           severity: "error",
         });
         setOpenAlert(true);
-        console.log("Usuario Incorrecto")
+        //console.log("Usuario Incorrecto")
       } else {
         setAlert({
           message: "Error al iniciar sesión. Por favor, intente nuevamente.",
           severity: "error",
         });
         setOpenAlert(true);
-        console.log("Algo esta mal")
+        //console.log("Algo esta mal")
       }
 
     } catch (error) {
