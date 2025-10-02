@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-//import { Box} from "@mui/material";
+import { Box} from "@mui/material";
 import Grid from '@mui/material/Grid';
 import WifiIcon from '@mui/icons-material/Wifi';
 import Typography from '@mui/material/Typography';
@@ -9,18 +9,23 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import VpnLockIcon from '@mui/icons-material/VpnLock';
 
+//import { _description, _posts } from 'src/_mock';
 import { DashboardContent } from 'src/layouts/dashboard';
-//import { _posts, _tasks, _traffic, _timeline } from 'src/_mock';
 
+import { AnalyticsNews } from '../analytic-new';
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
+
 
 // ----------------------------------------------------------------------
 export function OverviewAnalyticsView() {
 
   // Llama a la API al cargar el componente
   const [allValues, setAllValues] = useState<number[]>([]); // Estado para almacenar los valores de "value"
+  const [ registroErr, setregistroErr]=useState<string[]>([]); //Estado para almacenar los registros de "errores"
+  const [ registroErrDes, setregistroErrDes]=useState<string[]>([]); //Estado para almacenar los registros de "errores"
+  const [ registroErrFecha, setregistroErrFecha]=useState<string[]>([]); //Estado para almacenar los registros de "errores"
   const [fecha, setFecha] = useState<string[]>([]); // Estado para almacenar los valores de "fecha"
   const [VPN, setVPN] = useState<number[]>([]); // Estado para almacenar los valores de "vpn"
   const [Internet, setInternet] = useState<number[]>([]); 
@@ -57,6 +62,20 @@ export function OverviewAnalyticsView() {
       });
   }, []);
 
+  //Registro de errores
+  useEffect(() => {
+    axios.get<{ Bases: string; Mensaje: string , Fecha:string}[]>('/api2/v1/registroErrores')
+      .then(response => {
+        const jsonData = response.data; // Ahora TypeScript sabe que es del tipo correcto
+        setregistroErr(jsonData.map(item => item.Bases));
+        setregistroErrDes(jsonData.map(item => item.Mensaje));  
+        setregistroErrFecha(jsonData.map(item => item.Fecha));  
+              //console.log('Errores:', jsonData);      
+      })
+      .catch(apiError => {
+        console.error('Error al llamar a la API:', apiError);
+      });
+  }, []);
   ///REGISTROS DE  ESTA SEMANA
   useEffect(() => {
     axios.get<{ Cuenta: { Internet: number; RFC: number; Telefono: number; VPN: number }; Fecha: string }[]>('/api2/v1/weekly-registrations')
@@ -215,7 +234,8 @@ export function OverviewAnalyticsView() {
             }}
           />
         </Grid>
-        <Grid size={{ xs: 12, md: 6, lg: 8 }}>
+        <Grid 
+        size={{ xs: 12, md: 6, lg: 8 }}>
           <AnalyticsWebsiteVisits
             title="Formatos llenados la semana anterior"
             subheader= {"Semana del : "+fecha2[0] + " al "+fecha2[5]} 
@@ -231,7 +251,20 @@ export function OverviewAnalyticsView() {
           />
         </Grid>
 
+        <Grid 
+        size={{ xs: 12, md: 6, lg: 8 }}>
+          <AnalyticsNews title="Registro de errores" 
+            list={{
+              des:registroErr.slice(0, 5).map((title2, idx) => ({
+              title2,
+              description: registroErrDes[idx] ?? "",
+              fecha: registroErrFecha[idx] ?? "",
+            })),        
+          }}/>
+        </Grid>
+
       </Grid>
+      
       {/* </Box> */}
     </DashboardContent>
   );
