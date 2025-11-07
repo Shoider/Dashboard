@@ -63,8 +63,9 @@ export function VPNView() {
       _id: number
       nombreEnlace: string;
       telefonoEnlace: string;
-      nombreAutoriza: string;
-      puestoAutoriza: string;
+      //Cambiar por nombre de usuario y nombre autoriza
+      nombreInterno: string;
+      nombreExterno: string;
     }
 
     try {
@@ -152,8 +153,8 @@ export function VPNView() {
                   { id: '_id', label: 'No. Formato' },
                   { id: 'nombreEnlace', label: 'Enlace'},
                   { id: 'telefonoEnlace', label: 'Teléfono'},
-                  { id: 'nombreAutoriza', label: 'Autorizó'},
-                  { id: 'puestoAutoriza', label: 'Puesto'},
+                  { id: 'nombreInterno', label: 'Solicitante Interno'},
+                  { id: 'nombreExterno', label: 'Solicitante Externo'},
                  // { id: 'status', label: 'Autorizó' },
                   { id: '' },
                 ]}

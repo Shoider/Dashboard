@@ -18,8 +18,8 @@ export type UserProps = {
   _id: number;
   nombreEnlace: string;
   telefonoEnlace: string;
-  nombreAutoriza: string;
-  puestoAutoriza: string
+  nombreInterno: string;
+  nombreExterno: string
 };
 
 type UserTableRowProps = {
@@ -146,9 +146,9 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
 
         <TableCell>{row.telefonoEnlace}</TableCell>
 
-        <TableCell>{row.nombreAutoriza}</TableCell>
+        <TableCell>{row.nombreInterno}</TableCell>
 
-        <TableCell>{row.puestoAutoriza}</TableCell>
+        <TableCell>{row.nombreExterno}</TableCell>
 
 {/*         <TableCell align="center">
           {row.isVerified ? (
