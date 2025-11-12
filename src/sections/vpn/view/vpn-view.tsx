@@ -153,7 +153,7 @@ export function VPNView() {
                   { id: '_id', label: 'No. Formato' },
                   { id: 'nombreEnlace', label: 'Enlace'},
                   { id: 'telefonoEnlace', label: 'Teléfono'},
-                  { id: 'nombreInterno', label: 'Solicitante Interno'},
+                  { id: 'nombreInterno', label: 'Solicitante Interno / Responsable'},
                   { id: 'nombreExterno', label: 'Solicitante Externo'},
                  // { id: 'status', label: 'Autorizó' },
                   { id: '' },
