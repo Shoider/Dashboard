@@ -37,6 +37,12 @@ export const _account: AccountPopoverProps['data'] = [
     icon: <Iconify width={22} icon="solar:call-dropped-bold-dutone" />,
     key:"telefonia"
   },
+  {
+    label: 'DNS',
+    href: '/dns',
+    icon: <Iconify width={22} icon="solar:settings-bold-duotone" />,
+    key:"dns"
+  },
   // {
   //   label: 'Error',
   //   href: '/settings',

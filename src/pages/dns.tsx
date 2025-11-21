@@ -1,13 +1,14 @@
 
-import { TelefoniaView } from 'src/sections/telefonia/view';
+import { DNSView } from 'src/sections/dns/view/index';
+
 // ----------------------------------------------------------------------
 
 export default function Page() {
   return (
     <>
-      <title>{`Telefonía `}</title>
+      <title>{`DNS `}</title>
 
-      <TelefoniaView />
+      <DNSView />
     </>
   );
 }
