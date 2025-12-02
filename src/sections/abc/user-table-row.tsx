@@ -75,7 +75,7 @@ export function UserTableRow({ row, selected, onSelectRow }: UserTableRowProps) 
         // Crear un enlace temporal y simular el clic para descargar
         const link = document.createElement("a");
         link.href = url;
-        link.download = `DNS_${row._id}.pdf`;
+        link.download = `ABC_${row._id}.pdf`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
