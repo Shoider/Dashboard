@@ -45,6 +45,12 @@ export const navData :NavItem[] = [
     icon: icon('ic-phone'),
     key:"dns"
   },
+  {
+    title: 'ABC',
+    path: '/abc',
+    icon: icon('ic-phone'),
+    key:"abc"
+  },
   
 ];
 //console.log(navData)
