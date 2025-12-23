@@ -17,12 +17,15 @@ export function LogoConagua({
   sx,
   disabled,
   className,
-  href = '/dashboard',
+  href,
   ...other
 }: LogoProps) {
+  const tipoUsuario = localStorage.getItem("tipoUsuario") || "";
+  const defaultHref = (tipoUsuario === 'dns' || tipoUsuario === 'abc') ? '/dashboard_siis' : '/dashboard';
+  const logoHref = href || defaultHref;
   return (
     <LogoRoot
-      href={href}
+      href={logoHref}
       aria-label="Logo"
       underline="none"
       className={mergeClasses([className])}

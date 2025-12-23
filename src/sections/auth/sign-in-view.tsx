@@ -84,7 +84,8 @@ export function SignInView() {
         //console.log("Inicio exitoso, Token:", token)
         //console.log("Privilegio encontrado", tipoUsuario)
         //console.log("Contenido de la respuesta:", signinResponse)        
-        router.push("/dashboard");
+        const redirectPath = (tipoUsuario === 'dns' || tipoUsuario === 'abc') ? '/dashboard_siis' : '/dashboard';
+        router.push(redirectPath);
 
       } else if (signinResponse.status === 202) {
         setAlert({

@@ -8,7 +8,7 @@ import VpnLockIcon from '@mui/icons-material/VpnLock';
 
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { AnalyticsNews } from '../analytic-new';
+//import { AnalyticsNews } from '../analytic-new';
 import { AnalyticsCurrentVisits } from '../analytics-current-visits';
 import { AnalyticsWebsiteVisits } from '../analytics-website-visits';
 import { AnalyticsWidgetSummary } from '../analytics-widget-summary';
@@ -82,19 +82,19 @@ export function OverviewAnalyticsViewSIIS() {
   }, []);
   ///REGISTROS DE SEMANA , PORCENTAJE y CONTEO
   useEffect(() => {
-    axios.get<{ internet: { count: number; percent: number; week: string }[];
+    axios.get<{ abc: { count: number; percent: number; week: string }[];
     //rfc: { count: number; percent: number; week: string }[];
     //telefonia: { count: number; percent: number; week: string }[];
-    vpn: { count: number; percent: number; week: string }[] }>('/api2/v1/weekly-stats')
+    dns: { count: number; percent: number; week: string }[] }>('/api2/v1/weekly-stats')
       .then(response => {
         const jsonData = response.data; // Ahora TypeScript sabe que es del tipo correcto
-        setDNSPercent(jsonData.vpn.map(item => item.percent));
-        setDNSWeek(jsonData.vpn.map(item => item.week));
-        setABCPercent(jsonData.internet.map(item => item.percent));
-        setABCWeek(jsonData.internet.map(item => item.week));
+        setDNSPercent(jsonData.dns.map(item => item.percent));
+        setDNSWeek(jsonData.dns.map(item => item.week));
+        setABCPercent(jsonData.abc.map(item => item.percent));
+        setABCWeek(jsonData.abc.map(item => item.week));
         
-        setDNSCount(jsonData.vpn.map(item => item.count));
-        setABCCount(jsonData.internet.map(item => item.count));
+        setDNSCount(jsonData.dns.map(item => item.count));
+        setABCCount(jsonData.abc.map(item => item.count));
        
       })
       .catch(apiError => {

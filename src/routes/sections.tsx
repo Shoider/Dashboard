@@ -73,17 +73,17 @@ export const routesSection: RouteObject[] = [
       { 
         path: 'dashboard', 
         element: (
-          <ProtectedRoute>
+          <RoleProtectedRoute allowedRoles={['vpn','rfc','internet','telefonia', 'administrador']}>
             <DashboardPage /> 
-          </ProtectedRoute>
+          </RoleProtectedRoute>
         ),
         },
         { 
         path: 'dashboard_siis', 
         element: (
-          <ProtectedRoute>
+          <RoleProtectedRoute allowedRoles={['dns','abc', 'administrador']}>
             <DashboardSIISPage /> 
-          </ProtectedRoute>
+          </RoleProtectedRoute>
         ),
         },
       { 
