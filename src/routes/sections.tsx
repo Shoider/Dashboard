@@ -17,6 +17,7 @@ import { RoleProtectedRoute } from 'src/components/RoleProtectedRoute';
 // ----------------------------------------------------------------------
 
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
+export const DashboardSIISPage = lazy(() => import('src/pages/dashboard_siis'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const VPNPage = lazy(() => import('src/pages/vpn'));
 export const InternetPage = lazy(() => import('src/pages/internet'));
@@ -74,6 +75,14 @@ export const routesSection: RouteObject[] = [
         element: (
           <ProtectedRoute>
             <DashboardPage /> 
+          </ProtectedRoute>
+        ),
+        },
+        { 
+        path: 'dashboard_siis', 
+        element: (
+          <ProtectedRoute>
+            <DashboardSIISPage /> 
           </ProtectedRoute>
         ),
         },
