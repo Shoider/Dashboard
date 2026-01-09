@@ -66,6 +66,7 @@ export function VPNView() {
       //Cambiar por nombre de usuario y nombre autoriza
       nombreInterno: string;
       nombreExterno: string;
+      nombreResponsable: string;
     }
 
     try {
@@ -153,10 +154,11 @@ export function VPNView() {
                   { id: '_id', label: 'No. Formato' },
                   { id: 'nombreEnlace', label: 'Enlace'},
                   { id: 'telefonoEnlace', label: 'Teléfono'},
-                  { id: 'nombreInterno', label: 'Solicitante Interno / Responsable'},
+                  { id: 'nombreInterno', label: 'Solicitante Interno'},
                   { id: 'nombreExterno', label: 'Solicitante Externo'},
+                  { id: 'nombreResponsable', label: 'Responsable'},
                  // { id: 'status', label: 'Autorizó' },
-                  { id: '' },
+                  
                 ]}
               />
             <TableBody>
